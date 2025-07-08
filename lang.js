@@ -11,7 +11,7 @@ const translations = {
     project1Title: "Project One",
     project1Desc: "Short description of your project.",
     contactTitle: "Contact",
-    contactEmail: "Email: tbroyer@proton.me",
+    contactEmail: "Email: ",
     footerText: "© 2025 Thomas Bissonnette-Royer"
   },
   fr: {
@@ -26,7 +26,7 @@ const translations = {
     project1Title: "Projet Un",
     project1Desc: "Brève description de votre projet.",
     contactTitle: "Contact",
-    contactEmail: "Courriel : tbroyer@proton.me",
+    contactEmail: "Courriel : ",
     footerText: "© 2025 Thomas Bissonnette-Royer"
   }
 };
