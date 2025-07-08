@@ -16,27 +16,39 @@
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
     </nav>
+
+     <!-- Language selector -->
+    <select id="lang-select">
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+    </select>
   </header>
 
   <section id="about">
-    <h2>About Me</h2>
+    <h2 id="about-title">About Me</h2>
     <img src="image/Thomas Bissonnette Royer Web crop.jpg" alt="Profile Picture" />
-    <p>Hello! I'm [Your Name], a developer passionate about building impactful projects. I enjoy working with [Tech Stack] and contributing to open source.</p>
+    <p id="about-text">Hello! I'm [Your Name], a developer passionate about building impactful projects.</p>
   </section>
 
   <section id="projects">
-    <h2>Projects</h2>
+    <h2 id="projects-title">Projects</h2>
     <div class="project">
-      <h3>Project One</h3>
-      <p>Short description of your project.</p>
-      <a href="https://github.com/username/project1" target="_blank">GitHub Repo</a> |
-      <a href="/projects/project1.html">Live Demo</a>
-    </div>
-    <div class="project">
-      <h3>Project Two</h3>
-      <p>Another cool project description.</p>
-      <a href="https://github.com/username/project2" target="_blank">GitHub Repo</a> |
-      <a href="/projects/project2.html">Live Demo</a>
+      <h3 id="project1-title">Project One</h3>
+      <p id="project1-desc">Short description of your project.</p>
     </div>
   </section>
+
+  <section id="contact">
+    <h2 id="contact-title">Contact</h2>
+    <p id="contact-email">Email: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
+  </section>
+
+  <footer>
+    <p id="footer-text">&copy; 2025 Your Name</p>
+  </footer>
+
+  <script src="lang.js"></script>
+</body>
+</html>
 
