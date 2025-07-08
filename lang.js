@@ -33,7 +33,7 @@ const translations = {
 
 // Load saved language or default to English
 const langSelect = document.getElementById("lang-select");
-const savedLang = localStorage.getItem("lang") || "fr";
+const savedLang = localStorage.getItem("lang") || "en";
 langSelect.value = savedLang;
 setLanguage(savedLang);
 
