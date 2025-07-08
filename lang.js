@@ -1,33 +1,33 @@
 const translations = {
   en: {
-    name: "Your Name",
-    tagline: "Software Developer | Open Source Enthusiast",
+    name: "Thomas Bissonnette-Royer",
+    tagline: "Software Engineer",
     navAbout: "About",
     navProjects: "Projects",
     navContact: "Contact",
     aboutTitle: "About Me",
-    aboutText: "Hello! I'm [Your Name], a developer passionate about building impactful projects.",
+    aboutText: "Hello! I'm Thomas, a developer passionate about building impactful projects.",
     projectsTitle: "Projects",
     project1Title: "Project One",
     project1Desc: "Short description of your project.",
     contactTitle: "Contact",
-    contactEmail: "Email: ",
-    footerText: "© 2025 Your Name"
+    contactEmail: "Email: tbroyer@proton.me",
+    footerText: "© 2025 Thomas Bissonnette-Royer"
   },
   fr: {
-    name: "Votre Nom",
-    tagline: "Développeur Logiciel | Passionné d'Open Source",
+    name: "Thomas Bissonnette-Royer",
+    tagline: "Étudiant en Génie informatique",
     navAbout: "À propos",
     navProjects: "Projets",
     navContact: "Contact",
     aboutTitle: "À propos de moi",
-    aboutText: "Bonjour ! Je suis [Votre Nom], un développeur passionné par la création de projets impactants.",
+    aboutText: "Bonjour ! Je suis Thomas, un développeur passionné par la création de projets impactants.",
     projectsTitle: "Projets",
     project1Title: "Projet Un",
     project1Desc: "Brève description de votre projet.",
     contactTitle: "Contact",
-    contactEmail: "Courriel : ",
-    footerText: "© 2025 Votre Nom"
+    contactEmail: "Courriel : tbroyer@proton.me",
+    footerText: "© 2025 Thomas Bissonnette-Royer"
   }
 };
 
