@@ -63,14 +63,14 @@ section {
 
 section h2 {
   font-size: 2rem;
-  color: #2B2B2A;
+  color: #FFFFFF;
   border-bottom: 2px solid #FF00AE;
   display: inline-block;
   padding-bottom: 0.3rem;
 }
 
 section p {
-  color: #2B2B2A;
+  color: #FFFFFF;
 }
 
 .project {
@@ -83,7 +83,7 @@ section p {
 
 .project h3 {
   margin-top: 0;
-  color: #2B2B2A;
+  color: #FFFFFF;
 }
 
 .project p {
