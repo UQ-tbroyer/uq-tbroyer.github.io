@@ -18,12 +18,12 @@ header {
 
 header h1 {
   font-size: 2.5rem;
-  color: #FFFFFF;
+  color: #2B2B2A;
 }
 
 header p {
   font-size: 1.2rem;
-  color: #FFFFFF;
+  color: #2B2B2A;
 }
 
 nav {
@@ -54,16 +54,16 @@ nav a:hover {
 
 /* === Sections === */
 section {
-  background: #FFFFFF; /* light section on dark body */
+  background: #2B2B2A; /* light section on dark body */
   padding: 2rem;
   border-radius: 8px;
   margin: 3rem 0;
-  color: #2B2B2A; /* text back to dark on white */
+  color: #FFFFFF; /* text back to dark on white */
 }
 
 section h2 {
   font-size: 2rem;
-  color: #FFFFFF;
+  color: #2B2B2A;
   border-bottom: 2px solid #FF00AE;
   display: inline-block;
   padding-bottom: 0.3rem;
