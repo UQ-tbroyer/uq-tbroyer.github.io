@@ -7,7 +7,7 @@ body {
   padding: 0 1rem;
   line-height: 1.6;
   color: #2B2B2A;
-  background-color: #2B2B2A;
+  background: #2B2B2A;
 }
 
 /* === Header === */
@@ -18,12 +18,12 @@ header {
 
 header h1 {
   font-size: 2.5rem;
-  color: #FF00AE;
+  color: #FFFFFF;
 }
 
 header p {
   font-size: 1.2rem;
-  color: #7A697A;
+  color: #FFFFFF;
 }
 
 nav {
@@ -59,7 +59,7 @@ section {
 
 section h2 {
   font-size: 2rem;
-  color: #2F93D0;
+  color: #FFFFFF;
   border-bottom: 2px solid #FF00AE;
   display: inline-block;
   padding-bottom: 0.3rem;
