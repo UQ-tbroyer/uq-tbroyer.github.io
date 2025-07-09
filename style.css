@@ -1,6 +1,6 @@
 /* === Base styles === */
 body {
-  font-family: 'Segoe UI', Tahoma, sans-serif, 'Montserrat';
+  font-family: 'Segoe UI', 'Tahoma', 'sans-serif', 'Montserrat';
   max-width: 900px;
   margin: 0 auto;
   padding: 0 1rem;
