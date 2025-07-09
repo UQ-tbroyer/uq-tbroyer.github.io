@@ -6,8 +6,8 @@ body {
   margin: 0 auto;
   padding: 0 1rem;
   line-height: 1.6;
-  color: #2B2B2A;
-  background: #2B2B2A;
+  color: #FFFFFF;
+  background-color: #2B2B2A;
 }
 
 /* === Header === */
@@ -54,7 +54,11 @@ nav a:hover {
 
 /* === Sections === */
 section {
+  background: #FFFFFF; /* light section on dark body */
+  padding: 2rem;
+  border-radius: 8px;
   margin: 3rem 0;
+  color: #2B2B2A; /* text back to dark on white */
 }
 
 section h2 {
