@@ -45,7 +45,7 @@ const translations = {
     yearsDegree3: "2021-2023",
     descDegree3: "Diploma in general studies specialized in physics, mathematics and programming",
     projects: "My project",
-    title_project1 : "Crème and Menthe (2026)",
+    title_project1: "Crème and Menthe (2026)",
     desc_project1: "Coding and project manager of the Machine of the Engineering games 2026 for team UQAC.",
     title_project2: "Project manager software (2025)",
     desc_project2: "Programming of a tasks manager and a hours manager software for the course Méthodes et gestion de projets informatiques",
