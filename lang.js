@@ -1,61 +1,237 @@
 const translations = {
   en: {
-    name: "Thomas Bissonnette-Royer",
-    tagline: "Software Engineer",
+    navHome: "Home",
     navAbout: "About",
+    navExperience: "Experience",
+    navEducation: "Education",
     navProjects: "Projects",
     navContact: "Contact",
-    aboutTitle: "About Me",
-    aboutText: "Hello! I'm Thomas, a developer passionate about building impactful projects.",
-    projectsTitle: "Projects",
-    project1Title: "Project One",
-    project1Desc: "Short description of your project.",
-    contactTitle: "Contact",
-    contactEmail: "Email: ",
-    footerText: "© 2025 Thomas Bissonnette-Royer"
+    subname: "Computer Engineering Student",
+    subnameText: "Electronics and softwares enthusiast.",
+    contactButton: "Contact Me",
+    projectButton: "View Work",
+    aboutMe: "About Me",
+    personnalInfo: "Personnal Info",
+    skills: "Skills",
+    whoAmI: "Who am I?",
+    aboutMeText1: "I am a very curious person who loves to learn how and why things work, but also how to make them. Which explains why I'm always working on a side project.\n In fact, I earned a full ride scholarship thanks to one of those projects.",
+    aboutMeText2: "In my free time, I enjoy watching F1 and and learning interest facts about history.",
+    field1: "Embedded system",
+    workExperience: "Work experiences",
+    workTitle1: "Intern",
+    workCompany1: "Centre de Production Automatisé (CPA)",
+    workDate1: "Apr. 2023 - Now",
+    workTask1_1: "Integration of sensors to automate processes",
+    workTask1_2: "Implementation of an AI image recognition system to monitor plants health",
+    workTask1_3: "Automation of workflows",
+    workTask1_4: "Implementation of a local RAG agent",
+    workTitle2: "Breakfast waiter",
+    workCompany2: "OTL Governor",
+    workDate2: "2020 - 2023",
+    workTask2_1: "Provide quality food to guests",
+    workTask2_2: "Take care of the buffet and keep it clean",
+    workTask2_3: "Take care of guests special requests",
+    education: "Education",
+    degree1: "Bachelor's in Computer engineering",
+    schoolDegree1: "Université du Québec à Chicoutimi",
+    yearsDegree1: "2023 - now",
+    descDegree1: "Specialized in the conception and in the making of electronics and software projects",
+    degree2: "Summer school 0 to 1",
+    schoolDegree2: "Institut quantique",
+    yearsDegree2: "2025",
+    descDegree2: "Introduction to quantum circuit and quantum computers",
+    degree3: "DEC in Computer Science and Mathematics",
+    schoolDegree3: "CÉGEP de Jonquière",
+    yearsDegree3: "2021-2023",
+    descDegree3: "Diploma in general studies specialized in physics, mathematics and programming",
+    projects: "My project",
+    title_project1 : "Crème and Menthe (2026)",
+    desc_project1: "Coding and project manager of the Machine of the Engineering games 2026 for team UQAC.",
+    title_project2: "Project manager software (2025)",
+    desc_project2: "Programming of a tasks manager and a hours manager software for the course Méthodes et gestion de projets informatiques",
+    title_project3: "Bateau de route (2025)",
+    desc_project3: "Coding of the Machine of the Engineering games 2025 for team UQAC.",
+    title_project4: "Cosmic Genesis (2024)",
+    desc_project4: "One of the programmers of the game Cosmic Genesis presented during the winter WonderJam 2024 of UQAC.",
+    title_project5: "Chartreuse chanceuse (2024)",
+    desc_project5: "Coding of the Machine of the Engineering games 2024 for team UQAC.",
+    title_project6: "Robot calculator",
+    desc_project6: "Creation of a robot that can read a mathematical equation with a camera, solve it then writting the answer with a pen.",
+    title_contact: "Get in touch",
+    desc_contact: "Have a project in mind or want to discuss potential opportunities? Feel free to reach out!",
+    name_contact: "Name",
+    email_contact: "Email",
+    subject_contact: "Subject",
+    message_contact: "Message",
+    submit_contact: "Submit",
+    copyright: "2026 Thomas Bissonnette-Royer. All rights reserved."
   },
   fr: {
-    name: "Thomas Bissonnette-Royer",
-    tagline: "Étudiant en Génie informatique",
+    navHome: "Acceuil",
     navAbout: "À propos",
+    navExperience: "Expérience",
+    navEducation: "Éducation",
     navProjects: "Projets",
     navContact: "Contact",
-    aboutTitle: "À propos de moi",
-    aboutText: "Bonjour ! Je suis Thomas, un développeur passionné par la création de projets impactants.",
-    projectsTitle: "Projets",
-    project1Title: "Projet Un",
-    project1Desc: "Brève description de votre projet.",
-    contactTitle: "Contact",
-    contactEmail: "Courriel : ",
-    footerText: "© 2025 Thomas Bissonnette-Royer"
+    subname: "Étudiant en Génie Informatique",
+    subnameText: "Passionné d'électronique et de logiciels",
+    contactButton: "Contactez moi",
+    projectButton: "Voir travail",
+    aboutMe: "À propos de moi",
+    personnalInfo: "Informations personnelles",
+    skills: "Habiletés",
+    whoAmI: "Qui suis-je?",
+    aboutMeText1: "Je suis une personne curieuse qui adore apprendre comment et pourquoi les choses fonctionnent, mais surtout comment en fabriquer. Cela fait en sorte que je suis toujours en train de travailler sur un projet d’informatique ou d’électronique.\n D’ailleurs, j’ai pu obtenir une bourse couvrant les frais de mon baccalauréat grâce à l’un de ces projets.",
+    aboutMeText2: "Dans mon temps libre, j'apprécie regarder la F1 et apprendre des faits surprenants sur l'histoire.",
+    field1: "Sytèmes embarqués",
+    workExperience: "Expériences de travail",
+    workTitle1: "Stagiaire",
+    workCompany1: "Centre de Production Automatisé (CPA)",
+    workDate1: "Avr. 2023 - Présent",
+    workTask1_1: "Intégration de capteurs pour automatiser des processus",
+    workTask1_2: "Implémenter une IA de reconnaissance d'image pour surveillance la santé des plantes",
+    workTask1_3: "Automatiser des fluxs de travail",
+    workTask1_4: "Implémenter un agent RAG localement",
+    workTitle2: "Chargé du déjeuner",
+    workCompany2: "OTL Gouverneur",
+    workDate2: "2020 - 2023",
+    workTask2_1: "Fournir de la nourriture de qualité aux clients",
+    workTask2_2: "Prendre soin du buffet et le garder propre",
+    workTask2_3: "Prendre soin des demandes spéciales des clients",
+    education: "Éducation",
+    degree1: "Baccalauréat en Génie informatique",
+    schoolDegree1: "Université du Québec à Chicoutimi",
+    yearsDegree1: "2023 - présent",
+    descDegree1: "Spécialisation dans la conception et la réalisation de projets en informatique et en électronique",
+    degree2: "École d'été 0 à 1",
+    schoolDegree2: "Institut quantique",
+    yearsDegree2: "2025",
+    descDegree2: "Introduction aux circuits quantiques and aux ordinateurs quantiques",
+    degree3: "DEC en Sciences informatiques et mathématiques",
+    schoolDegree3: "CÉGEP de Jonquière",
+    yearsDegree3: "2021-2023",
+    descDegree3: "Diplôme d'étude générale spécialisé en physique, en mathématique et en programation",
+    projects: "Mes projets",
+    title_project1: "Crème et Menthe (2026)",
+    desc_project1: "Programmation et chef de projet de la Machine des Jeux de génie 2026 pour la délégation de l'UQAC",
+    title_project2: "Système de gestion de projet (2025)",
+    desc_project2: "Programmation d'un logiciel de gestion de tâches et gestion d'heures pour des équipes de développement dans le cadre du cours Méthodes et gestion de projets informatiques",
+    title_project3: "Bateau de route (2025)",
+    desc_project3: "Programmation de la Machine des Jeux de génie 2025 pour la délégation de l'UQAC.",
+    title_project4: "Genèse Cosmique",
+    desc_project4: "Programmation de la Machine des Jeux de génie 2024 pour la délégation de l'UQAC.",
+    title_project5: "Chartreuse chanceuse (2024)",
+    desc_project5: "Programmation du jeu Genèse cosmique pour la WonderJam d'hiver 2024 de l'UQAC",
+    title_project6: "Robot calculateur (2023)",
+    desc_project6: "Conception d'un robot pouvant lire une équation mathématique écrite avec une caméra, la résoudre, puis l'écrire sur la feuille.",
+    title_contact: "Contactez moi",
+    desc_contact: "Vous avez un projet en tête ou voulez discuter d'une potentielle opportunité? N'hésitez pas à m'écrire!",
+    name_contact: "Nom",
+    email_contact: "Courriel",
+    subject_contact: "Sujet",
+    message_contact: "Message",
+    submit_contact: "Soumettre",
+    copyright: "2026 Thomas Bissonnette-Royer. Tous droits réservés."
+
   }
 };
 
-// Load saved language or default to English
-const langSelect = document.getElementById("lang-select");
-const savedLang = localStorage.getItem("lang") || "fr";
-langSelect.value = savedLang;
-setLanguage(savedLang);
 
-langSelect.addEventListener("change", () => {
-  const selectedLang = langSelect.value;
-  localStorage.setItem("lang", selectedLang);
-  setLanguage(selectedLang);
+document.addEventListener("DOMContentLoaded", () => {
+  const langSelect = document.getElementById("lang-select");
+  const savedLang = localStorage.getItem("lang") || "fr";
+
+  if (langSelect) {
+    langSelect.value = savedLang;
+    setLanguage(savedLang);
+
+    langSelect.addEventListener("change", () => {
+      const selectedLang = langSelect.value;
+      localStorage.setItem("lang", selectedLang);
+      setLanguage(selectedLang);
+    });
+  }
 });
 
 function setLanguage(lang) {
   const t = translations[lang];
-  document.getElementById("name").textContent = t.name;
-  document.getElementById("tagline").textContent = t.tagline;
-  document.getElementById("nav-about").textContent = t.navAbout;
-  document.getElementById("nav-projects").textContent = t.navProjects;
-  document.getElementById("nav-contact").textContent = t.navContact;
-  document.getElementById("about-title").textContent = t.aboutTitle;
-  document.getElementById("about-text").textContent = t.aboutText;
-  document.getElementById("projects-title").textContent = t.projectsTitle;
-  document.getElementById("project1-title").textContent = t.project1Title;
-  document.getElementById("project1-desc").textContent = t.project1Desc;
-  document.getElementById("contact-title").textContent = t.contactTitle;
-  document.getElementById("contact-email").childNodes[0].textContent = t.contactEmail;
-  document.getElementById("footer-text").textContent = t.footerText;
+  document.documentElement.lang = "fr";
+
+  const map = {
+    "nav-home": t.navHome,
+    "nav-about": t.navAbout,
+    "nav-experience": t.navExperience,
+    "nav-education": t.navEducation,
+    "nav-projects": t.navProjects,
+    "nav-contact": t.navContact,
+    "subname": t.subname,
+    "subnameText": t.subnameText,
+    "contact-button": t.contactButton,
+    "project-button": t.projectButton,
+    "about-me": t.aboutMe,
+    "skills": t.skills,
+    "personnal-info": t.personnalInfo,
+    "who-am-i": t.whoAmI,
+    "about-me-text1": t.aboutMeText1,
+    "about-me-text2": t.aboutMeText2,
+    "field1": t.field1,
+    "work-experience": t.workExperience,
+    "work-title1": t.workTitle1,
+    "work-company1": t.workCompany1,
+    "work-date1": t.workDate1,
+    "work-task1-1": t.workTask1_1,
+    "work-task1-2": t.workTask1_2,
+    "work-task1-3": t.workTask1_3,
+    "work-task1-4": t.workTask1_4,
+    "work-title2": t.workTitle2,
+    "work-company2": t.workCompany2,
+    "work-date2": t.workDate2,
+    "work-task2-1": t.workTask2_1,
+    "work-task2-2": t.workTask2_2,
+    "work-task2-3": t.workTask2_3,
+    "education-title": t.education,
+    "degree1": t.degree1,
+    "school-degree1": t.schoolDegree1,
+    "years-degree1": t.yearsDegree1,
+    "desc-degree1": t.descDegree1,
+    "degree2": t.degree2,
+    "school-degree2": t.schoolDegree2,
+    "years-degree2": t.yearsDegree2,
+    "desc-degree2": t.descDegree2,
+    "degree3": t.degree3,
+    "school-degree3": t.schoolDegree3,
+    "years-degree3": t.yearsDegree3,
+    "desc-degree3": t.descDegree3,
+    "projects-title": t.projects,
+    "title-project1": t.title_project1,
+    "desc-project1": t.desc_project1, 
+    "title-project2": t.title_project2,
+    "desc-project2": t.desc_project2, 
+    "title-project3": t.title_project3,
+    "desc-project3": t.desc_project3, 
+    "title-project4": t.title_project4,
+    "desc-project4": t.desc_project4, 
+    "title-project5": t.title_project5,
+    "desc-project5": t.desc_project5, 
+    "title-project6": t.title_project6,
+    "desc-project6": t.desc_project6, 
+    "title-contact": t.title_contact,
+    "desc-contact": t.desc_contact,
+    "name-contact": t.name_contact,
+    "email-contact": t.email_contact,
+    "subject-contact": t.subject_contact,
+    "message-contact": t.message_contact,
+    "submit-contact": t.submit_contact,
+    "copyright": t.copyright,
+  };
+
+  for (const id in map) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = map[id];
+  }
+
+  const emailEl = document.getElementById("contact-email");
+  if (emailEl && emailEl.childNodes.length > 0) {
+    emailEl.childNodes[0].textContent = t.contactEmail;
+  }
 }

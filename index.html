@@ -1,54 +1,891 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Thomas Bissonnette-Royer - Portfolio">
-  <title>Thomas Bissonnette-Royer - Portfolio</title>
-
-  <link rel="stylesheet" href="style.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Thomas Bissonnette-Royer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS for animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+        
+        /* Active nav link */
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        
+        /* Project card hover effect */
+        .project-card {
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
-<body>
-  <header>
-    <h1 id="name">Your Name</h1>
-    <p id="tagline">Software Developer | Open Source Enthusiast</p>
-    <nav>
-      <a href="#about" id="nav-about">About</a>
-      <a href="#projects" id="nav-projects">Projects</a>
-      <a href="#contact" id="nav-contact">Contact</a>
+<body class="bg-gray-50 font-sans text-gray-800">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white shadow-md z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-xl font-bold text-blue-500">Portfolio</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home" id="nav-home" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-blue-500 transition">Home</a>
+                        <a href="#about" id="nav-about" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-blue-500 transition">About</a>
+                        <a href="#experience" id="nav-experience" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-blue-500 transition">Experience</a>
+                        <a href="#education" id="nav-education" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-blue-500 transition">Education</a>
+                        <a href="#projects" id="nav-projects" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-blue-500 transition">Projects</a>
+                        <a href="#contact" id="nav-contact" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-blue-500 transition">Contact</a>
+                        <!-- Language selector -->
+                        <select id="lang-select" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-blue-500 transition">
+                            <option value="en">English </option>
+                            <option value="fr">Français</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-gray-500 hover:text-blue-500 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" id="nav-home" class="nav-link block px-3 py-2 rounded-md text-base font-medium hover:text-blue-500">Home</a>
+                <a href="#about" id="nav-about" class="nav-link block px-3 py-2 rounded-md text-base font-medium hover:text-blue-500">About</a>
+                <a href="#experience" id="nav-experience" class="nav-link block px-3 py-2 rounded-md text-base font-medium hover:text-blue-500">Experience</a>
+                <a href="#education" id="nav-education" class="nav-link block px-3 py-2 rounded-md text-base font-medium hover:text-blue-500">Education</a>
+                <a href="#projects" id="nav-projects" class="nav-link block px-3 py-2 rounded-md text-base font-medium hover:text-blue-500">Projects</a>
+                <a href="#contact" id="nav-contact" class="nav-link block px-3 py-2 rounded-md text-base font-medium hover:text-blue-500">Contact</a>
+            </div>
+        </div>
     </nav>
 
-     <!-- Language selector -->
-    <select id="lang-select">
-      <option value="en">English</option>
-      <option value="fr">Français</option>
-    </select>
-  </header>
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="md:w-1/2 fade-in">
+                    <h1 id="name" class="text-4xl md:text-6xl font-bold text-gray-800 mb-4"><span class="text-blue-500">Thomas Bissonnette-Royer</span></h1>
+                    <h2 id="subname" class="text-2xl md:text-3xl font-semibold text-gray-600 mb-6">Web Developer & Designer</h2>
+                    <p id="subnameText" class="text-gray-600 mb-8 text-lg">I create beautiful, functional websites and applications with a focus on user experience.</p>
+                    <div class="flex space-x-4">
+                        <a href="#contact" id="contact-button" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition duration-300">Contact Me</a>
+                        <a href="#projects" id="project-button" class="border border-blue-500 text-blue-500 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium transition duration-300">View Work</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 mt-10 md:mt-0 flex justify-center fade-in delay-1">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-xl">
+                        <img src="image\Thomas Bissonnette Royer Web crop.jpg" 
+                             alt="Profile" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="about">
-    <h2 id="about-title">About Me</h2>
-    <img src="image/Thomas Bissonnette Royer Web crop.jpg" alt="Profile Picture" />
-    <p id="about-text">Hello! I'm [Your Name], a developer passionate about building impactful projects.</p>
-  </section>
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 id="about-me" class="text-3xl font-bold text-gray-800 mb-4">About Me</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
+            </div>
+            
+            <div class="md:flex md:items-center md:space-x-12">
+                <div class="md:w-1/3 mb-8 md:mb-0 fade-in delay-1">
+                    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                        <h3 id="personnal-info" class="text-xl font-semibold mb-4 text-gray-800">Personal Info</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-user mr-3 text-blue-500"></i>
+                                <span>Thomas Bissonnette-Royer</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope mr-3 text-blue-500"></i>
+                                <span>tbroyer@proton.me</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i>
+                                <span>Saguenay, Qc</span>
+                            </li>
+                        </ul>
+                        
+                        <h3 id="skills" class="text-xl font-semibold mt-6 mb-4 text-gray-800">Skills</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>Python</span>
+                                    <span>90%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>Java</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>C++</span>
+                                    <span>80%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-2/3 fade-in delay-2">
+                    <h3 id="who-am-i" class="text-2xl font-semibold mb-6 text-gray-800">Who I Am</h3>
+                    <p id="about-me-text1" class="text-gray-600 mb-6 leading-relaxed">
+                        I'm a passionate web developer with over 5 years of experience creating modern, responsive websites and web applications. 
+                        I specialize in front-end development using React and Vue.js, but I also have strong back-end skills with Node.js and Express.
+                    </p>
+                    <p id="about-me-text2" class="text-gray-600 mb-6 leading-relaxed">
+                        My approach combines technical expertise with an eye for design, ensuring that the websites I build are not only functional 
+                        but also visually appealing and user-friendly. I'm committed to writing clean, maintainable code and staying up-to-date 
+                        with the latest web technologies.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <div class="bg-blue-50 text-blue-600 px-4 py-2 rounded-full flex items-center">
+                            <i class="fas fa-car-alt mr-2"></i>
+                            <span id="field1">Web Development</span>
+                        </div>
+                        <div class="bg-blue-50 text-blue-600 px-4 py-2 rounded-full flex items-center">
+                            <i class="fab fa-docker mr-2"></i>
+                            <span>Docker</span>
+                        </div>
+                        <div class="bg-blue-50 text-blue-600 px-4 py-2 rounded-full flex items-center">
+                            <i class="fas fa-rss mr-2"></i>
+                            <span>IOT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="projects">
-    <h2 id="projects-title">Projects</h2>
-    <div class="project">
-      <h3 id="project1-title">Project One</h3>
-      <p id="project1-desc">Short description of your project.</p>
-    </div>
-  </section>
+    <!-- Experience Section -->
+    <section id="experience" class="py-16 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 id="work-experience" class="text-3xl font-bold text-gray-800 mb-4">Work Experience</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
+            </div>
+            
+            <div class="relative">
+                <!-- Timeline line -->
+                <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-blue-200 transform -translate-x-1/2"></div>
+                
+                <!-- Timeline items -->
+                <div class="space-y-8 md:space-y-12">
+                    <!-- Experience 1 -->
+                    <div class="relative fade-in delay-1">
+                        <div class="md:flex md:items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right">
+                                
+                                <image src="image\uqac.png" alt="profile" class="rounded-full w-12">
+                                <div class="md:mr-8">
+                                    <h3 id="work-title1" class="text-xl font-bold text-gray-800">Senior Web Developer</h3>
+                                    <p id="work-company1" class="text-blue-500 font-medium">Tech Solutions Inc.</p>
+                                    <p id="work-date1" class="text-gray-500 text-sm">Jan 2021 - Present</p>
+                                </div>
+                                
+                            </div>
+                            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-blue-500 rounded-full border-4 border-white"></div>
+                            <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
+                                <div class="bg-white p-6 rounded-lg shadow-md md:ml-8">
+                                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                                        <li id="work-task1-1">Led a team of 5 developers to build a SaaS platform with React and Node.js</li>
+                                        <li id="work-task1-2">Improved application performance by 40% through code optimization</li>
+                                        <li id="work-task1-3">Implemented CI/CD pipelines reducing deployment time by 60%</li>
+                                        <li id="work-task1-4">Mentored junior developers and conducted code reviews</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Experience 2 -->
+                    <div class="relative fade-in delay-1">
+                        <div class="md:flex md:items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right">
+                                <div class="md:mr-8">
+                                    <h3 id="work-title2" class="text-xl font-bold text-gray-800">Senior Web Developer</h3>
+                                    <p id="work-company2" class="text-blue-500 font-medium">Tech Solutions Inc.</p>
+                                    <p id="work-date2" class="text-gray-500 text-sm">Jan 2021 - Present</p>
+                                </div>
+                            </div>
+                            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-blue-500 rounded-full border-4 border-white"></div>
+                            <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
+                                <div class="bg-white p-6 rounded-lg shadow-md md:ml-8">
+                                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                                        <li id="work-task2-1">Led a team of 5 developers to build a SaaS platform with React and Node.js</li>
+                                        <li id="work-task2-2">Improved application performance by 40% through code optimization</li>
+                                        <li id="work-task2-3">Implemented CI/CD pipelines reducing deployment time by 60%</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="contact">
-    <h2 id="contact-title">Contact</h2>
-    <p id="contact-email">Email: <a href="mailto:tbroyer@proton.me">tbroyer@proton.me</a></p>
-  </section>
+    <!-- Education Section -->
+    <section id="education" class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 id="education-title" class="text-3xl font-bold text-gray-800 mb-4">Education & Certifications</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Education 1 -->
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md fade-in delay-1">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <!-- <i class="fas fa-graduation-cap text-blue-500 text-xl"></i> -->
+                            <image src="image\uqac.png" 
+                             alt="profile" class="rounded-full w-36">
+                        </div>
+                        <div>
+                            <h3 id="degree1" class="text-xl font-bold text-gray-800 mb-1">Master's in Computer Science</h3>
+                            <p id="school-degree1" class="text-blue-500 font-medium mb-2">Stanford University</p>
+                            <p id="years-degree1" class="text-gray-500 text-sm mb-4">2014 - 2016</p>
+                            <p id="desc-degree1" class="text-gray-600">
+                                Specialized in Human-Computer Interaction and Web Technologies. Thesis on "Optimizing User Experience in Progressive Web Apps".
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Education 2 -->
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md fade-in delay-1">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <!-- <i class="fas fa-graduation-cap text-blue-500 text-xl"></i> -->
+                            <image src="image\IQ.jpg" 
+                             alt="profile" class="rounded-full w-24">
+                        </div>
+                        <div>
+                            <h3 id="degree2" class="text-xl font-bold text-gray-800 mb-1">Master's in Computer Science</h3>
+                            <p id="school-degree2" class="text-blue-500 font-medium mb-2">Stanford University</p>
+                            <p id="years-degree2" class="text-gray-500 text-sm mb-4">2014 - 2016</p>
+                            <p id="desc-degree2" class="text-gray-600">
+                                Specialized in Human-Computer Interaction and Web Technologies. Thesis on "Optimizing User Experience in Progressive Web Apps".
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-  <footer>
-    <p id="footer-text">&copy; 2025 Your Name</p>
-  </footer>
+                <!-- Education 3 -->
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md fade-in delay-1">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <!-- <i class="fas fa-graduation-cap text-blue-500 text-xl"></i> -->
+                            <image src="image\cegepjonq.jpg" 
+                             alt="profile" class="rounded-full w-24">
+                        </div>
+                        <div>
+                            <h3 id="degree3" class="text-xl font-bold text-gray-800 mb-1">Master's in Computer Science</h3>
+                            <p id="school-degree3" class="text-blue-500 font-medium mb-2">Stanford University</p>
+                            <p id="years-degree3" class="text-gray-500 text-sm mb-4">2014 - 2016</p>
+                            <p id="desc-degree3" class="text-gray-600">
+                                Specialized in Human-Computer Interaction and Web Technologies. Thesis on "Optimizing User Experience in Progressive Web Apps".
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </section>
 
-  <script src="lang.js"></script>
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 id="projects-title" class="text-3xl font-bold text-gray-800 mb-4">My Projects</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto"></p><!--description si besoin -->
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md fade-in delay-1">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" 
+                             alt="Project 1" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 id="title-project1" class="text-xl font-bold text-gray-800 mb-2">E-commerce Platform</h3>
+                        <p id="desc-project1" class="text-gray-600 mb-4">A full-featured online store with product management, cart, and checkout functionality.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">ESP32</span>
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">C/C++</span>
+                            <!--<span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">MongoDB</span>-->
+                        </div>
+                        <!--
+                        <div class="flex space-x-3">
+                            <a href="#" class="text-blue-500 hover:text-blue-600 font-medium">View Live</a>
+                            <a href="#" class="text-gray-500 hover:text-gray-600 font-medium">Code</a>
+                        </div>  -->
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md fade-in delay-2">
+                    <div class="h-48 overflow-hidden">
+                        <img src="image\projet_gpi.jpg" 
+                             alt="Project 2" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 id="title-project2" class="text-xl font-bold text-gray-800 mb-2">Task Management App</h3>
+                        <p id="desc-project2" class="text-gray-600 mb-4">A productivity application for teams to collaborate on projects and track tasks.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">C++</span>
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">QML</span>
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">MySQL</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="https://github.com/UQ-tbroyer/projet-gpi/tree/mergeTest" class="text-gray-500 hover:text-gray-600 font-medium">Code</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md fade-in delay-2">
+                    <div class="h-48 overflow-hidden">
+                        <img src="image\BDR.jpg" 
+                             alt="Project 3" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 id="title-project3" class="text-xl font-bold text-gray-800 mb-2">Task Management App</h3>
+                        <p id="desc-project3" class="text-gray-600 mb-4">A productivity application for teams to collaborate on projects and track tasks.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">Python</span>
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">Raspberry Pi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md fade-in delay-3">
+                    <div class="h-48 overflow-hidden">
+                        <img src="image\genese.png"
+                             alt="Project 4" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 id="title-project4" class="text-xl font-bold text-gray-800 mb-2">Health & Fitness Tracker</h3>
+                        <p id="desc-project4" class="text-gray-600 mb-4">An application to track workouts, nutrition, and health metrics with data visualization.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">Unity</span>
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">C#</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="https://lespoutitschampignons.itch.io/gnse-cosmique" class="text-gray-500 hover:text-gray-600 font-medium">Code</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md fade-in delay-3">
+                    <div class="h-48 overflow-hidden">
+                        <img src="image\Chartreuse.jpg"
+                             alt="Project 5" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 id="title-project5" class="text-xl font-bold text-gray-800 mb-2">Health & Fitness Tracker</h3>
+                        <p id="desc-project5" class="text-gray-600 mb-4">An application to track workouts, nutrition, and health metrics with data visualization.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">ESP32</span>
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">C/C++</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md fade-in delay-3">
+                    <div class="h-48 overflow-hidden">
+                        <img src="image\calculateur.jpg"
+                             alt="Project 6" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 id="title-project6" class="text-xl font-bold text-gray-800 mb-2">Health & Fitness Tracker</h3>
+                        <p id="desc-project6" class="text-gray-600 mb-4">An application to track workouts, nutrition, and health metrics with data visualization.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">Python</span>
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">AI</span>
+                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">Vision</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- bouton all
+            <div class="text-center mt-12 fade-in delay-4">
+                <a href="#" class="inline-block bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
+                    View All Projects
+                </a>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 id="title-contact" class="text-3xl font-bold text-gray-800 mb-4">Get In Touch</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
+                <p id="desc-contact" class="text-gray-600 mt-4 max-w-2xl mx-auto">Have a project in mind or want to discuss potential opportunities? Feel free to reach out!</p>
+            </div>
+            
+            <div class="md:flex md:space-x-8">
+                <!-- <div class="md:w-1/2 mb-8 md:mb-0 fade-in delay-1"> -->
+                <div class="md:w-1/2 mb-8 md:mb-0 fade-in delay-1">
+                    <form id="contactForm" action="https://formspree.io/f/mdaanyrz" method="POST" class="space-y-6">
+                        <!-- Hidden fields for Formspree configuration -->
+                        <input type="hidden" name="_subject" value="New Portfolio Contact - {{name}}">
+                        <input type="hidden" name="_replyto" value="" id="reply-to">
+                        <input type="text" name="_gotcha" style="display:none" tabindex="-1">
+                        
+                        <!-- Name Field -->
+                        <div>
+                            <label id="name-contact" for="name" class="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+                            <input type="text" id="name" name="name" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                                aria-required="true"
+                                oninvalid="this.setCustomValidity('Please enter your name')"
+                                oninput="this.setCustomValidity('')">
+                            <p id="name-error" class="error-message text-red-500 text-xs mt-1 hidden"></p>
+                        </div>
+                        
+                        <!-- Email Field -->
+                        <div>
+                            <label id="email-contact" for="email" class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                            <input type="email" id="email" name="email" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                                aria-required="true"
+                                oninvalid="this.setCustomValidity('Please enter a valid email address')"
+                                oninput="this.setCustomValidity('')"
+                                onchange="document.getElementById('reply-to').value = this.value">
+                            <p id="email-error" class="error-message text-red-500 text-xs mt-1 hidden"></p>
+                        </div>
+                        
+                        <!-- Subject Field -->
+                        <div>
+                            <label id="subject-contact" for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject *</label>
+                            <input type="text" id="subject" name="subject" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                                aria-required="true"
+                                oninvalid="this.setCustomValidity('Please enter a subject')"
+                                oninput="this.setCustomValidity('')">
+                            <p id="subject-error" class="error-message text-red-500 text-xs mt-1 hidden"></p>
+                        </div>
+                        
+                        <!-- Message Field -->
+                        <div>
+                            <label id="message-contact" for="message" class="block text-sm font-medium text-gray-700 mb-1">Message *</label>
+                            <textarea id="message" name="message" rows="4" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                                    aria-required="true"
+                                    oninvalid="this.setCustomValidity('Please enter your message')"
+                                    oninput="this.setCustomValidity('')"></textarea>
+                            <p id="message-error" class="error-message text-red-500 text-xs mt-1 hidden"></p>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <button type="submit" 
+                                id="submit-contact" 
+                                class="w-full bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
+                            <span id="submit-text">Send Message</span>
+                            <svg id="loading-spinner" class="hidden ml-2 animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </button>
+                        
+                        <!-- Status Message -->
+                        <div id="form-message" class="hidden p-4 rounded-lg mt-4 text-center" role="alert"></div>
+                    </form>
+                </div>
+                <!-- Contact Section 
+                <div class="md:w-1/2 fade-in delay-2">
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-md h-full">
+                        <h3 class="text-xl font-bold text-gray-800 mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-map-marker-alt text-blue-500"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Location</h4>
+                                    <p class="text-gray-600">123 Tech Street, San Francisco, CA 94107</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-envelope text-blue-500"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Email</h4>
+                                    <p class="text-gray-600">john.doe@example.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-phone text-blue-500"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Phone</h4>
+                                    <p class="text-gray-600">+1 (555) 123-4567</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-clock text-blue-500"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Working Hours</h4>
+                                    <p class="text-gray-600">Monday - Friday: 9am - 5pm</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-semibold text-gray-800 mb-4">Follow Me</h4>
+                            <div class="flex space-x-4">
+                                <a href="https://www.linkedin.com/in/thomas-bissonnette-royer-27510b1b0/" class="bg-blue-100 text-blue-500 p-3 rounded-full hover:bg-blue-200 transition">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://github.com/UQ-tbroyer" class="bg-blue-100 text-blue-500 p-3 rounded-full hover:bg-blue-200 transition">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <p id="copyright">&copy; 2023 John Doe. All rights reserved.</p>
+                </div>
+                <div class="flex justify-center md:justify-end space-x-6">
+                    <a href="https://www.linkedin.com/in/thomas-bissonnette-royer-27510b1b0/" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/UQ-tbroyer" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+        
+        // Add active class to current section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeIn');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        fadeElements.forEach(element => {
+            fadeInObserver.observe(element);
+        });
+
+        // Contact Form Handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            
+            if (contactForm) {
+                const submitBtn = document.getElementById('submit-contact');
+                const submitText = document.getElementById('submit-text');
+                const loadingSpinner = document.getElementById('loading-spinner');
+                const formMessage = document.getElementById('form-message');
+                
+                // Real-time validation
+                contactForm.addEventListener('input', function(e) {
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                        validateField(e.target);
+                    }
+                });
+                
+                // Auto-populate reply-to field
+                const emailInput = document.getElementById('email');
+                if (emailInput) {
+                    emailInput.addEventListener('change', function() {
+                        const replyToField = document.getElementById('reply-to');
+                        if (replyToField) {
+                            replyToField.value = this.value;
+                        }
+                    });
+                }
+                
+                // Form submission
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    // Validate all fields
+                    const isValid = validateForm();
+                    
+                    if (!isValid) {
+                        showMessage('Please fix the errors above.', 'error');
+                        return;
+                    }
+                    
+                    // Show loading state
+                    setLoadingState(true);
+                    showMessage('Sending your message...', 'info');
+                    
+                    try {
+                        // Submit to Formspree
+                        const formData = new FormData(contactForm);
+                        const response = await fetch(contactForm.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            showMessage('✅ Message sent successfully! I\'ll get back to you soon.', 'success');
+                            contactForm.reset();
+                            // Clear reply-to field
+                            document.getElementById('reply-to').value = '';
+                        } else {
+                            const errorData = await response.json();
+                            showMessage('❌ ' + (errorData.error || 'Something went wrong. Please try again.'), 'error');
+                        }
+                    } catch (error) {
+                        console.error('Form submission error:', error);
+                        showMessage('❌ Network error. Please check your connection and try again.', 'error');
+                    } finally {
+                        setLoadingState(false);
+                    }
+                });
+                
+                function validateField(field) {
+                    const errorElement = document.getElementById(`${field.id}-error`);
+                    let isValid = true;
+                    let message = '';
+                    
+                    // Clear previous error styling
+                    field.classList.remove('border-red-500', 'border-green-500');
+                    field.classList.add('border-gray-300');
+                    
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        message = 'This field is required';
+                    } else if (field.type === 'email' && !isValidEmail(field.value)) {
+                        isValid = false;
+                        message = 'Please enter a valid email address';
+                    } else if (field.id === 'message' && field.value.length < 10) {
+                        isValid = false;
+                        message = 'Message should be at least 10 characters';
+                    } else {
+                        // Valid field - add green border for positive feedback
+                        field.classList.remove('border-gray-300');
+                        field.classList.add('border-green-500');
+                    }
+                    
+                    if (isValid) {
+                        errorElement.classList.add('hidden');
+                    } else {
+                        field.classList.remove('border-gray-300');
+                        field.classList.add('border-red-500');
+                        errorElement.textContent = message;
+                        errorElement.classList.remove('hidden');
+                    }
+                    
+                    return isValid;
+                }
+                
+                function validateForm() {
+                    let isValid = true;
+                    const requiredFields = contactForm.querySelectorAll('[required]');
+                    
+                    requiredFields.forEach(field => {
+                        if (!validateField(field)) {
+                            isValid = false;
+                        }
+                    });
+                    
+                    return isValid;
+                }
+                
+                function isValidEmail(email) {
+                    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+                }
+                
+                function setLoadingState(isLoading) {
+                    if (isLoading) {
+                        submitBtn.disabled = true;
+                        submitText.textContent = 'Sending...';
+                        loadingSpinner.classList.remove('hidden');
+                    } else {
+                        submitBtn.disabled = false;
+                        submitText.textContent = 'Send Message';
+                        loadingSpinner.classList.add('hidden');
+                    }
+                }
+                
+                function showMessage(text, type) {
+                    formMessage.textContent = text;
+                    formMessage.classList.remove('hidden');
+                    
+                    // Clear existing classes
+                    formMessage.classList.remove('bg-green-100', 'text-green-700', 'border-green-300', 
+                                                'bg-red-100', 'text-red-700', 'border-red-300',
+                                                'bg-blue-100', 'text-blue-700', 'border-blue-300');
+                    
+                    // Add appropriate classes based on message type
+                    switch(type) {
+                        case 'success':
+                            formMessage.classList.add('bg-green-100', 'text-green-700', 'border', 'border-green-300');
+                            break;
+                        case 'error':
+                            formMessage.classList.add('bg-red-100', 'text-red-700', 'border', 'border-red-300');
+                            break;
+                        case 'info':
+                            formMessage.classList.add('bg-blue-100', 'text-blue-700', 'border', 'border-blue-300');
+                            break;
+                    }
+                    
+                    // Auto-hide success messages after 5 seconds
+                    if (type === 'success') {
+                        setTimeout(() => {
+                            formMessage.classList.add('hidden');
+                        }, 5000);
+                    }
+                }
+            }
+        });
+
+
+
+    </script>
+
+    <script src="lang.js"></script>
 </body>
 </html>
-
