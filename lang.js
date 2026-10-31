@@ -255,4 +255,7 @@ function setLanguage(lang) {
   if (emailEl && emailEl.childNodes.length > 0) {
     emailEl.childNodes[0].textContent = t.contactEmail;
   }
+
+  // Lets text effects (index.html) re-render the text they animate
+  document.dispatchEvent(new CustomEvent("langchange", { detail: { lang } }));
 }

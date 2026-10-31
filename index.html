@@ -3,85 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#08080c">
     <title>Portfolio Thomas Bissonnette-Royer</title>
+    <script>document.documentElement.classList.add('js');</script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                        display: ['"Space Grotesk"', 'Inter', 'ui-sans-serif', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace']
+                    },
+                    colors: {
+                        // Dark greys with a cool, slightly violet tint
+                        ink: {
+                            950: '#08080c',
+                            900: '#0d0d12',
+                            850: '#111118',
+                            800: '#17171f',
+                            700: '#22222c',
+                            600: '#2e2e3a'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="reactbits.css">
     <style>
-        /* Custom CSS for animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        :root {
+            color-scheme: dark;
+            --bg: #08080c;
+            --violet: #a855f7;
+            --violet-deep: #7c3aed;
         }
-        
-        .fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
+
+        body {
+            background: var(--bg);
         }
-        
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-        .delay-4 { animation-delay: 0.8s; }
-        
+
+        ::selection {
+            background: rgba(168, 85, 247, 0.35);
+            color: #fff;
+        }
+
+        /* Faint grid and violet glows behind every section */
+        .backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(60rem 40rem at 85% 15%, rgba(124, 58, 237, 0.10), transparent 60%),
+                radial-gradient(50rem 40rem at 0% 70%, rgba(168, 85, 247, 0.07), transparent 60%),
+                var(--bg);
+        }
+
+        .backdrop::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 56px 56px;
+            -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 75%);
+            mask-image: radial-gradient(ellipse at center, #000 20%, transparent 75%);
+        }
+
+        /* Scroll reveal */
+        html.js .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            filter: blur(8px);
+            transition:
+                opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        html.js .reveal.is-visible {
+            opacity: 1;
+            transform: none;
+            filter: none;
+        }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+
         /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
-        
+
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #0b0b10;
         }
-        
+
         ::-webkit-scrollbar-thumb {
-            background: #3b82f6;
+            background: linear-gradient(#7c3aed, #a855f7);
             border-radius: 4px;
         }
-        
+
         ::-webkit-scrollbar-thumb:hover {
-            background: #2563eb;
+            background: #a855f7;
         }
-        
+
         /* Active nav link */
         .nav-link.active {
-            color: #3b82f6;
-            font-weight: 600;
+            color: #fff;
+            background: rgba(139, 92, 246, 0.14);
+            box-shadow: inset 0 0 0 1px rgba(168, 85, 247, 0.35);
         }
-        
+
+        #lang-select option {
+            background: #111118;
+            color: #ececf1;
+        }
+
+        /* Hero */
+        #hero-veil {
+            opacity: 0.9;
+        }
+
+        .hero-shade {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(180deg, rgba(8, 8, 12, 0.35) 0%, rgba(8, 8, 12, 0.6) 55%, var(--bg) 100%);
+        }
+
+        @media (min-width: 768px) {
+            .hero-shade {
+                background:
+                    linear-gradient(90deg, rgba(8, 8, 12, 0.8) 0%, rgba(8, 8, 12, 0.35) 55%, rgba(8, 8, 12, 0) 100%),
+                    linear-gradient(180deg, rgba(8, 8, 12, 0) 65%, var(--bg) 100%);
+            }
+        }
+
+        .pulse-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 9999px;
+            background: #c084fc;
+            box-shadow: 0 0 0 0 rgba(192, 132, 252, 0.7);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            70% { box-shadow: 0 0 0 8px rgba(192, 132, 252, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(192, 132, 252, 0); }
+        }
+
+        .profile-halo {
+            position: absolute;
+            inset: -12%;
+            z-index: -1;
+            border-radius: 9999px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.35), transparent 65%);
+            filter: blur(24px);
+        }
+
+        /* Section headings */
+        .section-index {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            color: #a78bfa;
+        }
+
+        .section-rule {
+            width: 6rem;
+            height: 1px;
+            margin: 1.25rem auto 0;
+            background: linear-gradient(90deg, transparent, var(--violet), transparent);
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.8);
+        }
+
+        /* Skills */
+        .skill-track {
+            height: 0.375rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            width: var(--w);
+            border-radius: inherit;
+            background: linear-gradient(90deg, #7c3aed, #c084fc);
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.7);
+            transition: width 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+        }
+
+        html.js .skill-fill {
+            width: 0;
+        }
+
+        .reveal.is-visible .skill-fill {
+            width: var(--w);
+        }
+
+        /* Timeline */
+        .timeline-dot {
+            box-shadow: 0 0 0 4px var(--bg), 0 0 18px 2px rgba(168, 85, 247, 0.8);
+        }
+
         /* Project card hover effect */
         .project-card {
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
+
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-6px);
+            box-shadow: 0 24px 48px -24px rgba(124, 58, 237, 0.55);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html.js .reveal {
+                opacity: 1;
+                transform: none;
+                filter: none;
+                transition: none;
+            }
+
+            .skill-fill,
+            .project-card {
+                transition: none;
+            }
+
+            .pulse-dot {
+                animation: none;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-50 font-sans text-gray-800">
+<body class="font-sans text-zinc-300 antialiased">
+    <div class="backdrop" aria-hidden="true"></div>
+
     <!-- Navigation -->
-    <nav class="fixed w-full bg-white shadow-md z-50">
+    <nav class="fixed w-full z-50 border-b border-white/5 bg-ink-950/60 backdrop-blur-xl">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex justify-between items-center h-16">
                 <div class="flex-shrink-0">
-                    <a href="#" class="text-xl font-bold text-blue-500">Portfolio</a>
+                    <a href="#home" class="flex items-center gap-2 font-display text-lg font-semibold tracking-tight text-white">
+                        <span class="w-2 h-2 rounded-sm bg-violet-400 shadow-[0_0_12px_rgba(192,132,252,0.9)]"></span>Portfolio
+                    </a>
                 </div>
                 <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#home" id="nav-home" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-blue-500 transition">Home</a>
-                        <a href="#about" id="nav-about" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-blue-500 transition">About</a>
-                        <a href="#experience" id="nav-experience" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-blue-500 transition">Experience</a>
-                        <a href="#education" id="nav-education" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-blue-500 transition">Education</a>
-                        <a href="#projects" id="nav-projects" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-blue-500 transition">Projects</a>
-                        <a href="#contact" id="nav-contact" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-blue-500 transition">Contact</a>
+                    <div class="ml-10 flex items-center space-x-1">
+                        <a href="#home" id="nav-home" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-zinc-400 hover:text-white transition">Home</a>
+                        <a href="#about" id="nav-about" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-zinc-400 hover:text-white transition">About</a>
+                        <a href="#experience" id="nav-experience" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-zinc-400 hover:text-white transition">Experience</a>
+                        <a href="#education" id="nav-education" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-zinc-400 hover:text-white transition">Education</a>
+                        <a href="#projects" id="nav-projects" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-zinc-400 hover:text-white transition">Projects</a>
+                        <a href="#contact" id="nav-contact" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-zinc-400 hover:text-white transition">Contact</a>
                         <!-- Language selector -->
-                        <select id="lang-select" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-blue-500 transition">
+                        <select id="lang-select" class="nav-link ml-2 px-3 py-1.5 rounded-md text-sm font-medium bg-ink-850 border border-white/10 text-zinc-300 hover:text-white hover:border-violet-500/50 focus:outline-none focus:border-violet-500 transition">
                             <option value="en">English </option>
                             <option value="fr">Français</option>
                         </select>
                     </div>
                 </div>
                 <div class="md:hidden">
-                    <button id="menu-toggle" class="text-gray-500 hover:text-blue-500 focus:outline-none">
+                    <button id="menu-toggle" class="text-zinc-400 hover:text-violet-300 focus:outline-none">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
@@ -90,35 +287,49 @@
             </div>
         </div>
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+        <div id="mobile-menu" class="hidden md:hidden bg-ink-950/95 border-t border-white/5">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" id="nav-home" class="nav-link block px-3 py-2 rounded-md text-base font-medium hover:text-blue-500">Home</a>
-                <a href="#about" id="nav-about" class="nav-link block px-3 py-2 rounded-md text-base font-medium hover:text-blue-500">About</a>
-                <a href="#experience" id="nav-experience" class="nav-link block px-3 py-2 rounded-md text-base font-medium hover:text-blue-500">Experience</a>
-                <a href="#education" id="nav-education" class="nav-link block px-3 py-2 rounded-md text-base font-medium hover:text-blue-500">Education</a>
-                <a href="#projects" id="nav-projects" class="nav-link block px-3 py-2 rounded-md text-base font-medium hover:text-blue-500">Projects</a>
-                <a href="#contact" id="nav-contact" class="nav-link block px-3 py-2 rounded-md text-base font-medium hover:text-blue-500">Contact</a>
+                <a href="#home" id="nav-home" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-zinc-300 hover:text-white">Home</a>
+                <a href="#about" id="nav-about" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-zinc-300 hover:text-white">About</a>
+                <a href="#experience" id="nav-experience" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-zinc-300 hover:text-white">Experience</a>
+                <a href="#education" id="nav-education" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-zinc-300 hover:text-white">Education</a>
+                <a href="#projects" id="nav-projects" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-zinc-300 hover:text-white">Projects</a>
+                <a href="#contact" id="nav-contact" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-zinc-300 hover:text-white">Contact</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-r from-blue-50 to-indigo-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="md:flex md:items-center md:justify-between">
-                <div class="md:w-1/2 fade-in">
-                    <h1 id="name" class="text-4xl md:text-6xl font-bold text-gray-800 mb-4"><span class="text-blue-500">Thomas Bissonnette-Royer</span></h1>
-                    <h2 id="subname" class="text-2xl md:text-3xl font-semibold text-gray-600 mb-6">Web Developer & Designer</h2>
-                    <p id="subnameText" class="text-gray-600 mb-8 text-lg">I create beautiful, functional websites and applications with a focus on user experience.</p>
-                    <div class="flex space-x-4">
-                        <a href="#contact" id="contact-button" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition duration-300">Contact Me</a>
-                        <a href="#projects" id="project-button" class="border border-blue-500 text-blue-500 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium transition duration-300">View Work</a>
+    <section id="home" class="relative min-h-screen flex items-center pt-28 pb-20 md:pt-32 md:pb-24 overflow-hidden">
+        <!-- React Bits: DarkVeil -->
+        <div class="absolute inset-0" aria-hidden="true"><div id="hero-veil"></div></div>
+        <div class="hero-shade" aria-hidden="true"></div>
+
+        <div class="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="md:flex md:items-center md:justify-between md:gap-12">
+                <div class="md:w-1/2 reveal">
+                    <p class="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border border-violet-500/30 bg-violet-500/10 font-mono text-xs uppercase tracking-widest text-violet-200">
+                        <span class="pulse-dot"></span>Saguenay, Qc
+                    </p>
+                    <!-- React Bits: GradientText -->
+                    <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] text-white mb-6"><span id="hero-name">Thomas Bissonnette-Royer</span></h1>
+                    <!-- React Bits: DecryptedText -->
+                    <h2 id="subname" class="font-display text-xl md:text-2xl font-medium text-violet-200 mb-4">Web Developer & Designer</h2>
+                    <p id="subnameText" class="text-zinc-400 mb-10 text-lg max-w-md">I create beautiful, functional websites and applications with a focus on user experience.</p>
+                    <!-- React Bits: StarBorder -->
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#contact" class="cta-primary"><span id="contact-button">Contact Me</span><i class="fas fa-arrow-right text-xs" aria-hidden="true"></i></a>
+                        <a href="#projects" class="cta-ghost"><span id="project-button">View Work</span></a>
                     </div>
                 </div>
-                <div class="md:w-1/2 mt-10 md:mt-0 flex justify-center fade-in delay-1">
-                    <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-xl">
-                        <img src="image\Thomas Bissonnette Royer Web crop.jpg" 
-                             alt="Profile" class="w-full h-full object-cover">
+                <div class="md:w-1/2 mt-16 md:mt-0 flex justify-center reveal delay-2">
+                    <!-- React Bits: ElectricBorder -->
+                    <div id="profile-frame" class="relative w-64 h-64 md:w-80 md:h-80 rounded-full">
+                        <div class="profile-halo" aria-hidden="true"></div>
+                        <div class="relative w-full h-full rounded-full overflow-hidden ring-1 ring-white/10 bg-ink-900">
+                            <img src="image\Thomas Bissonnette Royer Web crop.jpg"
+                                 alt="Profile" class="w-full h-full object-cover">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -126,88 +337,89 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-16 bg-white">
+    <section id="about" class="relative py-24">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 id="about-me" class="text-3xl font-bold text-gray-800 mb-4">About Me</h2>
-                <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
+            <div class="text-center mb-14 reveal">
+                <span class="section-index" aria-hidden="true">// 01</span>
+                <h2 id="about-me" class="section-title font-display text-3xl md:text-4xl font-semibold tracking-tight">About Me</h2>
+                <div class="section-rule"></div>
             </div>
-            
-            <div class="md:flex md:items-center md:space-x-12">
-                <div class="md:w-1/3 mb-8 md:mb-0 fade-in delay-1">
-                    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
-                        <h3 id="personnal-info" class="text-xl font-semibold mb-4 text-gray-800">Personal Info</h3>
-                        <ul class="space-y-3">
+
+            <div class="md:flex md:items-start md:space-x-12">
+                <div class="md:w-1/3 mb-8 md:mb-0 reveal delay-1">
+                    <div class="card rounded-2xl p-6">
+                        <h3 id="personnal-info" class="font-display text-lg font-semibold mb-5 text-white">Personal Info</h3>
+                        <ul class="space-y-3 text-zinc-300">
                             <li class="flex items-center">
-                                <i class="fas fa-user mr-3 text-blue-500"></i>
+                                <i class="fas fa-user w-5 mr-3 text-violet-400"></i>
                                 <span>Thomas Bissonnette-Royer</span>
                             </li>
                             <li class="flex items-center">
-                                <i class="fas fa-envelope mr-3 text-blue-500"></i>
+                                <i class="fas fa-envelope w-5 mr-3 text-violet-400"></i>
                                 <span>tbroyer@proton.me</span>
                             </li>
                             <li class="flex items-center">
-                                <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i>
+                                <i class="fas fa-map-marker-alt w-5 mr-3 text-violet-400"></i>
                                 <span>Saguenay, Qc</span>
                             </li>
                         </ul>
-                        
-                        <h3 id="skills" class="text-xl font-semibold mt-6 mb-4 text-gray-800">Skills</h3>
-                        <div class="space-y-3">
+
+                        <h3 id="skills" class="font-display text-lg font-semibold mt-8 mb-5 text-white">Skills</h3>
+                        <div class="space-y-4">
                             <div>
-                                <div class="flex justify-between mb-1">
-                                    <span>Python</span>
-                                    <span>90%</span>
+                                <div class="flex justify-between mb-2 text-sm">
+                                    <span class="text-zinc-300">Python</span>
+                                    <span class="font-mono text-violet-300"><span data-count="90">90</span>%</span>
                                 </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2">
-                                    <div class="bg-blue-500 h-2 rounded-full" style="width: 95%"></div>
+                                <div class="skill-track">
+                                    <div class="skill-fill" style="--w: 95%"></div>
                                 </div>
                             </div>
                             <div>
-                                <div class="flex justify-between mb-1">
-                                    <span>Java</span>
-                                    <span>85%</span>
+                                <div class="flex justify-between mb-2 text-sm">
+                                    <span class="text-zinc-300">Java</span>
+                                    <span class="font-mono text-violet-300"><span data-count="85">85</span>%</span>
                                 </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2">
-                                    <div class="bg-blue-500 h-2 rounded-full" style="width: 90%"></div>
+                                <div class="skill-track">
+                                    <div class="skill-fill" style="--w: 90%"></div>
                                 </div>
                             </div>
                             <div>
-                                <div class="flex justify-between mb-1">
-                                    <span>C++</span>
-                                    <span>80%</span>
+                                <div class="flex justify-between mb-2 text-sm">
+                                    <span class="text-zinc-300">C++</span>
+                                    <span class="font-mono text-violet-300"><span data-count="80">80</span>%</span>
                                 </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2">
-                                    <div class="bg-blue-500 h-2 rounded-full" style="width: 85%"></div>
+                                <div class="skill-track">
+                                    <div class="skill-fill" style="--w: 85%"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="md:w-2/3 fade-in delay-2">
-                    <h3 id="who-am-i" class="text-2xl font-semibold mb-6 text-gray-800">Who I Am</h3>
-                    <p id="about-me-text1" class="text-gray-600 mb-6 leading-relaxed">
-                        I'm a passionate web developer with over 5 years of experience creating modern, responsive websites and web applications. 
+
+                <div class="md:w-2/3 reveal delay-2">
+                    <h3 id="who-am-i" class="font-display text-2xl font-semibold mb-6 text-white">Who I Am</h3>
+                    <p id="about-me-text1" class="text-zinc-400 mb-6 leading-relaxed">
+                        I'm a passionate web developer with over 5 years of experience creating modern, responsive websites and web applications.
                         I specialize in front-end development using React and Vue.js, but I also have strong back-end skills with Node.js and Express.
                     </p>
-                    <p id="about-me-text2" class="text-gray-600 mb-6 leading-relaxed">
-                        My approach combines technical expertise with an eye for design, ensuring that the websites I build are not only functional 
-                        but also visually appealing and user-friendly. I'm committed to writing clean, maintainable code and staying up-to-date 
+                    <p id="about-me-text2" class="text-zinc-400 mb-8 leading-relaxed">
+                        My approach combines technical expertise with an eye for design, ensuring that the websites I build are not only functional
+                        but also visually appealing and user-friendly. I'm committed to writing clean, maintainable code and staying up-to-date
                         with the latest web technologies.
                     </p>
-                    
-                    <div class="flex flex-wrap gap-4">
-                        <div class="bg-blue-50 text-blue-600 px-4 py-2 rounded-full flex items-center">
-                            <i class="fas fa-car-alt mr-2"></i>
+
+                    <div class="flex flex-wrap gap-3">
+                        <div class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-4 py-2 rounded-full flex items-center">
+                            <i class="fas fa-car-alt mr-2 text-violet-400"></i>
                             <span id="field1">Web Development</span>
                         </div>
-                        <div class="bg-blue-50 text-blue-600 px-4 py-2 rounded-full flex items-center">
-                            <i class="fab fa-docker mr-2"></i>
+                        <div class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-4 py-2 rounded-full flex items-center">
+                            <i class="fab fa-docker mr-2 text-violet-400"></i>
                             <span>Docker</span>
                         </div>
-                        <div class="bg-blue-50 text-blue-600 px-4 py-2 rounded-full flex items-center">
-                            <i class="fas fa-rss mr-2"></i>
+                        <div class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-4 py-2 rounded-full flex items-center">
+                            <i class="fas fa-rss mr-2 text-violet-400"></i>
                             <span>IOT</span>
                         </div>
                     </div>
@@ -217,39 +429,40 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="py-16 bg-gray-50">
+    <section id="experience" class="relative py-24">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 id="work-experience" class="text-3xl font-bold text-gray-800 mb-4">Work Experience</h2>
-                <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
+            <div class="text-center mb-14 reveal">
+                <span class="section-index" aria-hidden="true">// 02</span>
+                <h2 id="work-experience" class="section-title font-display text-3xl md:text-4xl font-semibold tracking-tight">Work Experience</h2>
+                <div class="section-rule"></div>
             </div>
-            
+
             <div class="relative">
                <!-- Timeline items -->
                 <div class="space-y-8 md:space-y-12">
-               
-                <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-blue-200 transform -translate-x-1/2"></div>
+
+                <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-violet-500/60 to-transparent transform -translate-x-1/2"></div>
 
                 <!-- Experience 0 -->
-                    <div class="relative fade-in delay-1">
+                    <div class="relative reveal delay-1">
                         <div class="md:flex md:items-center">
                             <div class="md:w-1/2 md:pr-12 md:text-right">
                                 <div class="md:mr-8 flex items-center md:justify-end gap-4">
 
-                                    <img src="image/beneva.png" alt="company logo" class="w-16 h-16 object-contain rounded-full shrink-0">
+                                    <img src="image/beneva.png" alt="company logo" class="w-16 h-16 object-contain rounded-full shrink-0 bg-white p-1.5 ring-1 ring-white/10">
 
                                     <div>
-                                        <h3 id="work-title0" class="text-xl font-bold text-gray-800">Stagiaire</h3>
-                                        <p id="work-company0" class="text-blue-500 font-medium">Bénéva</p>
-                                        <p id="work-date0" class="text-gray-500 text-sm">Mai 2026 - présent</p>
+                                        <h3 id="work-title0" class="font-display text-xl font-semibold text-white">Stagiaire</h3>
+                                        <p id="work-company0" class="text-violet-300 font-medium">Bénéva</p>
+                                        <p id="work-date0" class="font-mono text-xs text-zinc-500 mt-1">Mai 2026 - présent</p>
                                     </div>
 
                                 </div>
                             </div>
-                            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-blue-500 rounded-full border-4 border-white"></div>
+                            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-violet-400 rounded-full timeline-dot"></div>
                             <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
-                                <div class="bg-white p-6 rounded-lg shadow-md md:ml-8">
-                                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                                <div class="card rounded-2xl p-6 md:ml-8">
+                                    <ul class="list-disc pl-5 space-y-2 text-zinc-400 marker:text-violet-400">
                                         <li id="work-task0-1">Led a team of 5 developers to build a SaaS platform with React and Node.js</li>
                                         <li id="work-task0-2">Improved application performance by 40% through code optimization</li>
                                         <li id="work-task0-3">Implemented CI/CD pipelines reducing deployment time by 60%</li>
@@ -259,28 +472,28 @@
                             </div>
                         </div>
                     </div>
-                
-                
+
+
                     <!-- Experience 1 -->
-                    <div class="relative fade-in delay-1">
+                    <div class="relative reveal delay-1">
                         <div class="md:flex md:items-center">
                             <div class="md:w-1/2 md:pr-12 md:text-right">
-                                
+
                                 <!--<image src="image\uqac.png" alt="profile" class="rounded-full w-12">-->
                                 <div class="md:mr-8 flex items-center md:justify-end gap-4">
-                                    <img src="image/cpa.jpg" alt="company logo" class="w-16 h-16 object-contain rounded-full shrink-0">
+                                    <img src="image/cpa.jpg" alt="company logo" class="w-16 h-16 object-contain rounded-full shrink-0 bg-white p-1.5 ring-1 ring-white/10">
                                     <div>
-                                        <h3 id="work-title1" class="text-xl font-bold text-gray-800">Senior Web Developer</h3>
-                                        <p id="work-company1" class="text-blue-500 font-medium">Tech Solutions Inc.</p>
-                                        <p id="work-date1" class="text-gray-500 text-sm">Jan 2021 - Present</p>
+                                        <h3 id="work-title1" class="font-display text-xl font-semibold text-white">Senior Web Developer</h3>
+                                        <p id="work-company1" class="text-violet-300 font-medium">Tech Solutions Inc.</p>
+                                        <p id="work-date1" class="font-mono text-xs text-zinc-500 mt-1">Jan 2021 - Present</p>
                                     </div>
                                 </div>
-                                
+
                             </div>
-                            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-blue-500 rounded-full border-4 border-white"></div>
+                            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-violet-400 rounded-full timeline-dot"></div>
                             <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
-                                <div class="bg-white p-6 rounded-lg shadow-md md:ml-8">
-                                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                                <div class="card rounded-2xl p-6 md:ml-8">
+                                    <ul class="list-disc pl-5 space-y-2 text-zinc-400 marker:text-violet-400">
                                         <li id="work-task1-1">Led a team of 5 developers to build a SaaS platform with React and Node.js</li>
                                         <li id="work-task1-2">Improved application performance by 40% through code optimization</li>
                                         <li id="work-task1-3">Implemented CI/CD pipelines reducing deployment time by 60%</li>
@@ -290,24 +503,24 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Experience 2 -->
-                    <div class="relative fade-in delay-1">
+                    <div class="relative reveal delay-1">
                         <div class="md:flex md:items-center">
                             <div class="md:w-1/2 md:pr-12 md:text-right">
                                 <div class="md:mr-8 flex items-center md:justify-end gap-4">
-                                    <img src="image/otl.jpg" alt="company logo" class="w-16 h-16 object-contain rounded-full shrink-0">
+                                    <img src="image/otl.jpg" alt="company logo" class="w-16 h-16 object-contain rounded-full shrink-0 bg-white p-1.5 ring-1 ring-white/10">
                                     <div>
-                                        <h3 id="work-title2" class="text-xl font-bold text-gray-800">Senior Web Developer</h3>
-                                        <p id="work-company2" class="text-blue-500 font-medium">Tech Solutions Inc.</p>
-                                        <p id="work-date2" class="text-gray-500 text-sm">Jan 2021 - Present</p>
+                                        <h3 id="work-title2" class="font-display text-xl font-semibold text-white">Senior Web Developer</h3>
+                                        <p id="work-company2" class="text-violet-300 font-medium">Tech Solutions Inc.</p>
+                                        <p id="work-date2" class="font-mono text-xs text-zinc-500 mt-1">Jan 2021 - Present</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-blue-500 rounded-full border-4 border-white"></div>
+                            <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-violet-400 rounded-full timeline-dot"></div>
                             <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
-                                <div class="bg-white p-6 rounded-lg shadow-md md:ml-8">
-                                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                                <div class="card rounded-2xl p-6 md:ml-8">
+                                    <ul class="list-disc pl-5 space-y-2 text-zinc-400 marker:text-violet-400">
                                         <li id="work-task2-1">Led a team of 5 developers to build a SaaS platform with React and Node.js</li>
                                         <li id="work-task2-2">Improved application performance by 40% through code optimization</li>
                                         <li id="work-task2-3">Implemented CI/CD pipelines reducing deployment time by 60%</li>
@@ -322,45 +535,46 @@
     </section>
 
     <!-- Education Section -->
-    <section id="education" class="py-16 bg-white">
+    <section id="education" class="relative py-24">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 id="education-title" class="text-3xl font-bold text-gray-800 mb-4">Education & Certifications</h2>
-                <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
+            <div class="text-center mb-14 reveal">
+                <span class="section-index" aria-hidden="true">// 03</span>
+                <h2 id="education-title" class="section-title font-display text-3xl md:text-4xl font-semibold tracking-tight">Education & Certifications</h2>
+                <div class="section-rule"></div>
             </div>
-            
+
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Education 1 -->
-                <div class="bg-gray-50 p-6 rounded-lg shadow-md fade-in delay-1">
+                <div class="card rounded-2xl p-6 reveal delay-1">
                     <div class="flex items-start">
-                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                        <div class="bg-white p-2 rounded-full mr-5 shrink-0 ring-1 ring-white/10 shadow-[0_0_24px_-6px_rgba(168,85,247,0.6)]">
                             <!-- <i class="fas fa-graduation-cap text-blue-500 text-xl"></i> -->
-                            <image src="image\uqac.png" 
-                             alt="profile" class="rounded-full w-36">
+                            <image src="image\uqac.png"
+                             alt="profile" class="rounded-full w-24 lg:w-36">
                         </div>
                         <div>
-                            <h3 id="degree1" class="text-xl font-bold text-gray-800 mb-1">Master's in Computer Science</h3>
-                            <p id="school-degree1" class="text-blue-500 font-medium mb-2">Stanford University</p>
-                            <p id="years-degree1" class="text-gray-500 text-sm mb-4">2014 - 2016</p>
-                            <p id="desc-degree1" class="text-gray-600">
+                            <h3 id="degree1" class="font-display text-xl font-semibold text-white mb-1">Master's in Computer Science</h3>
+                            <p id="school-degree1" class="text-violet-300 font-medium mb-2">Stanford University</p>
+                            <p id="years-degree1" class="font-mono text-xs text-zinc-500 mb-4">2014 - 2016</p>
+                            <p id="desc-degree1" class="text-zinc-400">
                                 Specialized in Human-Computer Interaction and Web Technologies. Thesis on "Optimizing User Experience in Progressive Web Apps".
                             </p>
                         </div>
                     </div>
                 </div>
                 <!-- Education 2 -->
-                <div class="bg-gray-50 p-6 rounded-lg shadow-md fade-in delay-1">
+                <div class="card rounded-2xl p-6 reveal delay-2">
                     <div class="flex items-start">
-                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                        <div class="bg-white p-2 rounded-full mr-5 shrink-0 ring-1 ring-white/10 shadow-[0_0_24px_-6px_rgba(168,85,247,0.6)]">
                             <!-- <i class="fas fa-graduation-cap text-blue-500 text-xl"></i> -->
-                            <image src="image\IQ.jpg" 
+                            <image src="image\IQ.jpg"
                              alt="profile" class="rounded-full w-24">
                         </div>
                         <div>
-                            <h3 id="degree2" class="text-xl font-bold text-gray-800 mb-1">Master's in Computer Science</h3>
-                            <p id="school-degree2" class="text-blue-500 font-medium mb-2">Stanford University</p>
-                            <p id="years-degree2" class="text-gray-500 text-sm mb-4">2014 - 2016</p>
-                            <p id="desc-degree2" class="text-gray-600">
+                            <h3 id="degree2" class="font-display text-xl font-semibold text-white mb-1">Master's in Computer Science</h3>
+                            <p id="school-degree2" class="text-violet-300 font-medium mb-2">Stanford University</p>
+                            <p id="years-degree2" class="font-mono text-xs text-zinc-500 mb-4">2014 - 2016</p>
+                            <p id="desc-degree2" class="text-zinc-400">
                                 Specialized in Human-Computer Interaction and Web Technologies. Thesis on "Optimizing User Experience in Progressive Web Apps".
                             </p>
                         </div>
@@ -368,51 +582,53 @@
                 </div>
 
                 <!-- Education 3 -->
-                <div class="bg-gray-50 p-6 rounded-lg shadow-md fade-in delay-1">
+                <div class="card rounded-2xl p-6 reveal delay-1">
                     <div class="flex items-start">
-                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                        <div class="bg-white p-2 rounded-full mr-5 shrink-0 ring-1 ring-white/10 shadow-[0_0_24px_-6px_rgba(168,85,247,0.6)]">
                             <!-- <i class="fas fa-graduation-cap text-blue-500 text-xl"></i> -->
-                            <image src="image\cegepjonq.jpg" 
+                            <image src="image\cegepjonq.jpg"
                              alt="profile" class="rounded-full w-24">
                         </div>
                         <div>
-                            <h3 id="degree3" class="text-xl font-bold text-gray-800 mb-1">Master's in Computer Science</h3>
-                            <p id="school-degree3" class="text-blue-500 font-medium mb-2">Stanford University</p>
-                            <p id="years-degree3" class="text-gray-500 text-sm mb-4">2014 - 2016</p>
-                            <p id="desc-degree3" class="text-gray-600">
+                            <h3 id="degree3" class="font-display text-xl font-semibold text-white mb-1">Master's in Computer Science</h3>
+                            <p id="school-degree3" class="text-violet-300 font-medium mb-2">Stanford University</p>
+                            <p id="years-degree3" class="font-mono text-xs text-zinc-500 mb-4">2014 - 2016</p>
+                            <p id="desc-degree3" class="text-zinc-400">
                                 Specialized in Human-Computer Interaction and Web Technologies. Thesis on "Optimizing User Experience in Progressive Web Apps".
                             </p>
                         </div>
                     </div>
                 </div>
-                
-                
+
+
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-16 bg-gray-50">
+    <section id="projects" class="relative py-24">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 id="projects-title" class="text-3xl font-bold text-gray-800 mb-4">My Projects</h2>
-                <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
-                <p class="text-gray-600 mt-4 max-w-2xl mx-auto"></p><!--description si besoin -->
+            <div class="text-center mb-14 reveal">
+                <span class="section-index" aria-hidden="true">// 04</span>
+                <h2 id="projects-title" class="section-title font-display text-3xl md:text-4xl font-semibold tracking-tight">My Projects</h2>
+                <div class="section-rule"></div>
+                <p class="text-zinc-400 mt-4 max-w-2xl mx-auto"></p><!--description si besoin -->
             </div>
-            
+
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Project 1 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md fade-in delay-1">
-                    <div class="h-48 overflow-hidden">
+                <div class="project-card card rounded-2xl overflow-hidden reveal delay-1">
+                    <div class="relative h-48 overflow-hidden">
                         <img src="image\creme.jpg"
                              alt="Project 1" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-ink-850 to-transparent"></div>
                     </div>
                     <div class="p-6">
-                        <h3 id="title-project1" class="text-xl font-bold text-gray-800 mb-2">E-commerce Platform</h3>
-                        <p id="desc-project1" class="text-gray-600 mb-4">A full-featured online store with product management, cart, and checkout functionality.</p>
+                        <h3 id="title-project1" class="font-display text-xl font-semibold text-white mb-2">E-commerce Platform</h3>
+                        <p id="desc-project1" class="text-zinc-400 mb-4">A full-featured online store with product management, cart, and checkout functionality.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">ESP32</span>
-                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">C/C++</span>
+                            <span class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-3 py-1 rounded-full text-xs font-mono">ESP32</span>
+                            <span class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-3 py-1 rounded-full text-xs font-mono">C/C++</span>
                             <!--<span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">MongoDB</span>-->
                         </div>
                         <!--
@@ -424,94 +640,99 @@
                 </div>
 
                 <!-- Project 2 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md fade-in delay-2">
-                    <div class="h-48 overflow-hidden">
-                        <img src="image\projet_gpi.jpg" 
+                <div class="project-card card rounded-2xl overflow-hidden reveal delay-2">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="image\projet_gpi.jpg"
                              alt="Project 2" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-ink-850 to-transparent"></div>
                     </div>
                     <div class="p-6">
-                        <h3 id="title-project2" class="text-xl font-bold text-gray-800 mb-2">Task Management App</h3>
-                        <p id="desc-project2" class="text-gray-600 mb-4">A productivity application for teams to collaborate on projects and track tasks.</p>
+                        <h3 id="title-project2" class="font-display text-xl font-semibold text-white mb-2">Task Management App</h3>
+                        <p id="desc-project2" class="text-zinc-400 mb-4">A productivity application for teams to collaborate on projects and track tasks.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">C++</span>
-                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">QML</span>
-                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">MySQL</span>
+                            <span class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-3 py-1 rounded-full text-xs font-mono">C++</span>
+                            <span class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-3 py-1 rounded-full text-xs font-mono">QML</span>
+                            <span class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-3 py-1 rounded-full text-xs font-mono">MySQL</span>
                         </div>
                         <div class="flex space-x-3">
-                            <a href="https://github.com/UQ-tbroyer/projet-gpi/tree/mergeTest" class="text-gray-500 hover:text-gray-600 font-medium">Code</a>
+                            <a href="https://github.com/UQ-tbroyer/projet-gpi/tree/mergeTest" class="inline-flex items-center gap-2 text-violet-300 hover:text-white font-medium transition"><i class="fab fa-github"></i>Code</a>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Project 3 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md fade-in delay-2">
-                    <div class="h-48 overflow-hidden">
-                        <img src="image\BDR.jpg" 
+                <div class="project-card card rounded-2xl overflow-hidden reveal delay-2">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="image\BDR.jpg"
                              alt="Project 3" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-ink-850 to-transparent"></div>
                     </div>
                     <div class="p-6">
-                        <h3 id="title-project3" class="text-xl font-bold text-gray-800 mb-2">Task Management App</h3>
-                        <p id="desc-project3" class="text-gray-600 mb-4">A productivity application for teams to collaborate on projects and track tasks.</p>
+                        <h3 id="title-project3" class="font-display text-xl font-semibold text-white mb-2">Task Management App</h3>
+                        <p id="desc-project3" class="text-zinc-400 mb-4">A productivity application for teams to collaborate on projects and track tasks.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">Python</span>
-                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">Raspberry Pi</span>
+                            <span class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-3 py-1 rounded-full text-xs font-mono">Python</span>
+                            <span class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-3 py-1 rounded-full text-xs font-mono">Raspberry Pi</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Project 4 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md fade-in delay-3">
-                    <div class="h-48 overflow-hidden">
+                <div class="project-card card rounded-2xl overflow-hidden reveal delay-3">
+                    <div class="relative h-48 overflow-hidden">
                         <img src="image\genese.png"
                              alt="Project 4" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-ink-850 to-transparent"></div>
                     </div>
                     <div class="p-6">
-                        <h3 id="title-project4" class="text-xl font-bold text-gray-800 mb-2">Health & Fitness Tracker</h3>
-                        <p id="desc-project4" class="text-gray-600 mb-4">An application to track workouts, nutrition, and health metrics with data visualization.</p>
+                        <h3 id="title-project4" class="font-display text-xl font-semibold text-white mb-2">Health & Fitness Tracker</h3>
+                        <p id="desc-project4" class="text-zinc-400 mb-4">An application to track workouts, nutrition, and health metrics with data visualization.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">Unity</span>
-                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">C#</span>
+                            <span class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-3 py-1 rounded-full text-xs font-mono">Unity</span>
+                            <span class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-3 py-1 rounded-full text-xs font-mono">C#</span>
                         </div>
                         <div class="flex space-x-3">
-                            <a href="https://lespoutitschampignons.itch.io/gnse-cosmique" class="text-gray-500 hover:text-gray-600 font-medium">Code</a>
+                            <a href="https://lespoutitschampignons.itch.io/gnse-cosmique" class="inline-flex items-center gap-2 text-violet-300 hover:text-white font-medium transition"><i class="fas fa-gamepad"></i>Code</a>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Project 5 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md fade-in delay-3">
-                    <div class="h-48 overflow-hidden">
+                <div class="project-card card rounded-2xl overflow-hidden reveal delay-3">
+                    <div class="relative h-48 overflow-hidden">
                         <img src="image\Chartreuse.jpg"
                              alt="Project 5" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-ink-850 to-transparent"></div>
                     </div>
                     <div class="p-6">
-                        <h3 id="title-project5" class="text-xl font-bold text-gray-800 mb-2">Health & Fitness Tracker</h3>
-                        <p id="desc-project5" class="text-gray-600 mb-4">An application to track workouts, nutrition, and health metrics with data visualization.</p>
+                        <h3 id="title-project5" class="font-display text-xl font-semibold text-white mb-2">Health & Fitness Tracker</h3>
+                        <p id="desc-project5" class="text-zinc-400 mb-4">An application to track workouts, nutrition, and health metrics with data visualization.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">ESP32</span>
-                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">C/C++</span>
+                            <span class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-3 py-1 rounded-full text-xs font-mono">ESP32</span>
+                            <span class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-3 py-1 rounded-full text-xs font-mono">C/C++</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Project 6 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md fade-in delay-3">
-                    <div class="h-48 overflow-hidden">
+                <div class="project-card card rounded-2xl overflow-hidden reveal delay-3">
+                    <div class="relative h-48 overflow-hidden">
                         <img src="image\calculateur.jpg"
                              alt="Project 6" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-ink-850 to-transparent"></div>
                     </div>
                     <div class="p-6">
-                        <h3 id="title-project6" class="text-xl font-bold text-gray-800 mb-2">Health & Fitness Tracker</h3>
-                        <p id="desc-project6" class="text-gray-600 mb-4">An application to track workouts, nutrition, and health metrics with data visualization.</p>
+                        <h3 id="title-project6" class="font-display text-xl font-semibold text-white mb-2">Health & Fitness Tracker</h3>
+                        <p id="desc-project6" class="text-zinc-400 mb-4">An application to track workouts, nutrition, and health metrics with data visualization.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">Python</span>
-                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">AI</span>
-                            <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">Vision</span>
+                            <span class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-3 py-1 rounded-full text-xs font-mono">Python</span>
+                            <span class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-3 py-1 rounded-full text-xs font-mono">AI</span>
+                            <span class="bg-violet-500/10 text-violet-200 border border-violet-500/20 px-3 py-1 rounded-full text-xs font-mono">Vision</span>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- bouton all
             <div class="text-center mt-12 fade-in delay-4">
                 <a href="#" class="inline-block bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
@@ -522,88 +743,88 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-white">
+    <section id="contact" class="relative py-24">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 id="title-contact" class="text-3xl font-bold text-gray-800 mb-4">Get In Touch</h2>
-                <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
-                <p id="desc-contact" class="text-gray-600 mt-4 max-w-2xl mx-auto">Have a project in mind or want to discuss potential opportunities? Feel free to reach out!</p>
+            <div class="text-center mb-14 reveal">
+                <span class="section-index" aria-hidden="true">// 05</span>
+                <h2 id="title-contact" class="section-title font-display text-3xl md:text-4xl font-semibold tracking-tight">Get In Touch</h2>
+                <div class="section-rule"></div>
+                <p id="desc-contact" class="text-zinc-400 mt-6 max-w-2xl mx-auto">Have a project in mind or want to discuss potential opportunities? Feel free to reach out!</p>
             </div>
-            
-            <div class="md:flex md:space-x-8">
-                <!-- <div class="md:w-1/2 mb-8 md:mb-0 fade-in delay-1"> -->
-                <div class="md:w-1/2 mb-8 md:mb-0 fade-in delay-1">
+
+            <div class="max-w-2xl mx-auto">
+                <div class="card rounded-2xl p-6 md:p-8 reveal delay-1">
                     <form id="contactForm" action="https://formspree.io/f/mdaanyrz" method="POST" class="space-y-6">
                         <!-- Hidden fields for Formspree configuration -->
                         <input type="hidden" name="_subject" value="New Portfolio Contact - {{name}}">
                         <input type="hidden" name="_replyto" value="" id="reply-to">
                         <input type="text" name="_gotcha" style="display:none" tabindex="-1">
-                        
+
                         <!-- Name Field -->
                         <div>
-                            <label id="name-contact" for="name" class="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+                            <label id="name-contact" for="name" class="block text-sm font-medium text-zinc-300 mb-2">Name *</label>
                             <input type="text" id="name" name="name" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                                class="w-full px-4 py-3 rounded-xl bg-ink-950/70 border border-white/10 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/30 transition"
                                 aria-required="true"
                                 oninvalid="this.setCustomValidity('Please enter your name')"
                                 oninput="this.setCustomValidity('')">
-                            <p id="name-error" class="error-message text-red-500 text-xs mt-1 hidden"></p>
+                            <p id="name-error" class="error-message text-red-400 text-xs mt-1 hidden"></p>
                         </div>
-                        
+
                         <!-- Email Field -->
                         <div>
-                            <label id="email-contact" for="email" class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                            <label id="email-contact" for="email" class="block text-sm font-medium text-zinc-300 mb-2">Email *</label>
                             <input type="email" id="email" name="email" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                                class="w-full px-4 py-3 rounded-xl bg-ink-950/70 border border-white/10 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/30 transition"
                                 aria-required="true"
                                 oninvalid="this.setCustomValidity('Please enter a valid email address')"
                                 oninput="this.setCustomValidity('')"
                                 onchange="document.getElementById('reply-to').value = this.value">
-                            <p id="email-error" class="error-message text-red-500 text-xs mt-1 hidden"></p>
+                            <p id="email-error" class="error-message text-red-400 text-xs mt-1 hidden"></p>
                         </div>
-                        
+
                         <!-- Subject Field -->
                         <div>
-                            <label id="subject-contact" for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject *</label>
+                            <label id="subject-contact" for="subject" class="block text-sm font-medium text-zinc-300 mb-2">Subject *</label>
                             <input type="text" id="subject" name="subject" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                                class="w-full px-4 py-3 rounded-xl bg-ink-950/70 border border-white/10 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/30 transition"
                                 aria-required="true"
                                 oninvalid="this.setCustomValidity('Please enter a subject')"
                                 oninput="this.setCustomValidity('')">
-                            <p id="subject-error" class="error-message text-red-500 text-xs mt-1 hidden"></p>
+                            <p id="subject-error" class="error-message text-red-400 text-xs mt-1 hidden"></p>
                         </div>
-                        
+
                         <!-- Message Field -->
                         <div>
-                            <label id="message-contact" for="message" class="block text-sm font-medium text-gray-700 mb-1">Message *</label>
+                            <label id="message-contact" for="message" class="block text-sm font-medium text-zinc-300 mb-2">Message *</label>
                             <textarea id="message" name="message" rows="4" required
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                                    class="w-full px-4 py-3 rounded-xl bg-ink-950/70 border border-white/10 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/30 transition"
                                     aria-required="true"
                                     oninvalid="this.setCustomValidity('Please enter your message')"
                                     oninput="this.setCustomValidity('')"></textarea>
-                            <p id="message-error" class="error-message text-red-500 text-xs mt-1 hidden"></p>
+                            <p id="message-error" class="error-message text-red-400 text-xs mt-1 hidden"></p>
                         </div>
-                        
+
                         <!-- Submit Button -->
-                        <button type="submit" 
-                                id="submit-contact" 
-                                class="w-full bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
+                        <button type="submit"
+                                id="submit-contact"
+                                class="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white px-6 py-3 rounded-xl font-medium shadow-[0_0_32px_-8px_rgba(168,85,247,0.9)] transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
                             <span id="submit-text">Send Message</span>
                             <svg id="loading-spinner" class="hidden ml-2 animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
                         </button>
-                        
+
                         <!-- Status Message -->
-                        <div id="form-message" class="hidden p-4 rounded-lg mt-4 text-center" role="alert"></div>
+                        <div id="form-message" class="hidden p-4 rounded-xl mt-4 text-center" role="alert"></div>
                     </form>
                 </div>
-                <!-- Contact Section 
+                <!-- Contact Section
                 <div class="md:w-1/2 fade-in delay-2">
                     <div class="bg-gray-50 p-8 rounded-lg shadow-md h-full">
                         <h3 class="text-xl font-bold text-gray-800 mb-6">Contact Information</h3>
-                        
+
                         <div class="space-y-6">
                             <div class="flex items-start">
                                 <div class="bg-blue-100 p-3 rounded-full mr-4">
@@ -614,7 +835,7 @@
                                     <p class="text-gray-600">123 Tech Street, San Francisco, CA 94107</p>
                                 </div>
                             </div>
-                            
+
                             <div class="flex items-start">
                                 <div class="bg-blue-100 p-3 rounded-full mr-4">
                                     <i class="fas fa-envelope text-blue-500"></i>
@@ -624,7 +845,7 @@
                                     <p class="text-gray-600">john.doe@example.com</p>
                                 </div>
                             </div>
-                            
+
                             <div class="flex items-start">
                                 <div class="bg-blue-100 p-3 rounded-full mr-4">
                                     <i class="fas fa-phone text-blue-500"></i>
@@ -634,7 +855,7 @@
                                     <p class="text-gray-600">+1 (555) 123-4567</p>
                                 </div>
                             </div>
-                            
+
                             <div class="flex items-start">
                                 <div class="bg-blue-100 p-3 rounded-full mr-4">
                                     <i class="fas fa-clock text-blue-500"></i>
@@ -645,7 +866,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="mt-8">
                             <h4 class="font-semibold text-gray-800 mb-4">Follow Me</h4>
                             <div class="flex space-x-4">
@@ -665,17 +886,17 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
+    <footer class="border-t border-white/5 bg-ink-950/80 text-zinc-500 py-10">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="md:flex md:items-center md:justify-between">
                 <div class="text-center md:text-left mb-4 md:mb-0">
-                    <p id="copyright">&copy; 2023 John Doe. All rights reserved.</p>
+                    <p id="copyright" class="text-sm">&copy; 2023 John Doe. All rights reserved.</p>
                 </div>
-                <div class="flex justify-center md:justify-end space-x-6">
-                    <a href="https://www.linkedin.com/in/thomas-bissonnette-royer-27510b1b0/" class="text-gray-400 hover:text-white transition">
+                <div class="flex justify-center md:justify-end space-x-3">
+                    <a href="https://www.linkedin.com/in/thomas-bissonnette-royer-27510b1b0/" class="w-10 h-10 inline-flex items-center justify-center rounded-full border border-white/10 text-zinc-400 hover:text-violet-300 hover:border-violet-500/50 transition">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
-                    <a href="https://github.com/UQ-tbroyer" class="text-gray-400 hover:text-white transition">
+                    <a href="https://github.com/UQ-tbroyer" class="w-10 h-10 inline-flex items-center justify-center rounded-full border border-white/10 text-zinc-400 hover:text-violet-300 hover:border-violet-500/50 transition">
                         <i class="fab fa-github"></i>
                     </a>
                 </div>
@@ -688,43 +909,43 @@
         document.getElementById('menu-toggle').addEventListener('click', function() {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
-        
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
+
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
-                
+
                 if (targetElement) {
                     window.scrollTo({
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
-                    
+
                     // Close mobile menu if open
                     document.getElementById('mobile-menu').classList.add('hidden');
                 }
             });
         });
-        
+
         // Add active class to current section in navigation
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
-        
+
         window.addEventListener('scroll', function() {
             let current = '';
-            
+
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
-                
+
                 if (pageYOffset >= (sectionTop - 100)) {
                     current = section.getAttribute('id');
                 }
             });
-            
+
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === `#${current}`) {
@@ -732,41 +953,42 @@
                 }
             });
         });
-        
-        // Animation on scroll
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const fadeInObserver = new IntersectionObserver((entries) => {
+
+        // Reveal on scroll
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-fadeIn');
+                    entry.target.classList.add('is-visible');
+                    revealObserver.unobserve(entry.target);
                 }
             });
         }, {
             threshold: 0.1
         });
-        
-        fadeElements.forEach(element => {
-            fadeInObserver.observe(element);
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
         });
 
         // Contact Form Handling
         document.addEventListener('DOMContentLoaded', function() {
             const contactForm = document.getElementById('contactForm');
-            
+
             if (contactForm) {
                 const submitBtn = document.getElementById('submit-contact');
                 const submitText = document.getElementById('submit-text');
                 const loadingSpinner = document.getElementById('loading-spinner');
                 const formMessage = document.getElementById('form-message');
-                
+
                 // Real-time validation
                 contactForm.addEventListener('input', function(e) {
                     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
                         validateField(e.target);
                     }
                 });
-                
+
                 // Auto-populate reply-to field
                 const emailInput = document.getElementById('email');
                 if (emailInput) {
@@ -777,23 +999,23 @@
                         }
                     });
                 }
-                
+
                 // Form submission
                 contactForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
-                    
+
                     // Validate all fields
                     const isValid = validateForm();
-                    
+
                     if (!isValid) {
                         showMessage('Please fix the errors above.', 'error');
                         return;
                     }
-                    
+
                     // Show loading state
                     setLoadingState(true);
                     showMessage('Sending your message...', 'info');
-                    
+
                     try {
                         // Submit to Formspree
                         const formData = new FormData(contactForm);
@@ -804,7 +1026,7 @@
                                 'Accept': 'application/json'
                             }
                         });
-                        
+
                         if (response.ok) {
                             showMessage('✅ Message sent successfully! I\'ll get back to you soon.', 'success');
                             contactForm.reset();
@@ -821,16 +1043,16 @@
                         setLoadingState(false);
                     }
                 });
-                
+
                 function validateField(field) {
                     const errorElement = document.getElementById(`${field.id}-error`);
                     let isValid = true;
                     let message = '';
-                    
+
                     // Clear previous error styling
-                    field.classList.remove('border-red-500', 'border-green-500');
-                    field.classList.add('border-gray-300');
-                    
+                    field.classList.remove('border-red-500', 'border-emerald-500');
+                    field.classList.add('border-white/10');
+
                     if (!field.value.trim()) {
                         isValid = false;
                         message = 'This field is required';
@@ -842,39 +1064,39 @@
                         message = 'Message should be at least 10 characters';
                     } else {
                         // Valid field - add green border for positive feedback
-                        field.classList.remove('border-gray-300');
-                        field.classList.add('border-green-500');
+                        field.classList.remove('border-white/10');
+                        field.classList.add('border-emerald-500');
                     }
-                    
+
                     if (isValid) {
                         errorElement.classList.add('hidden');
                     } else {
-                        field.classList.remove('border-gray-300');
+                        field.classList.remove('border-white/10');
                         field.classList.add('border-red-500');
                         errorElement.textContent = message;
                         errorElement.classList.remove('hidden');
                     }
-                    
+
                     return isValid;
                 }
-                
+
                 function validateForm() {
                     let isValid = true;
                     const requiredFields = contactForm.querySelectorAll('[required]');
-                    
+
                     requiredFields.forEach(field => {
                         if (!validateField(field)) {
                             isValid = false;
                         }
                     });
-                    
+
                     return isValid;
                 }
-                
+
                 function isValidEmail(email) {
                     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
                 }
-                
+
                 function setLoadingState(isLoading) {
                     if (isLoading) {
                         submitBtn.disabled = true;
@@ -886,29 +1108,29 @@
                         loadingSpinner.classList.add('hidden');
                     }
                 }
-                
+
                 function showMessage(text, type) {
                     formMessage.textContent = text;
                     formMessage.classList.remove('hidden');
-                    
+
                     // Clear existing classes
-                    formMessage.classList.remove('bg-green-100', 'text-green-700', 'border-green-300', 
-                                                'bg-red-100', 'text-red-700', 'border-red-300',
-                                                'bg-blue-100', 'text-blue-700', 'border-blue-300');
-                    
+                    formMessage.classList.remove('bg-emerald-500/10', 'text-emerald-300', 'border-emerald-500/30',
+                                                'bg-red-500/10', 'text-red-300', 'border-red-500/30',
+                                                'bg-violet-500/10', 'text-violet-200', 'border-violet-500/30');
+
                     // Add appropriate classes based on message type
                     switch(type) {
                         case 'success':
-                            formMessage.classList.add('bg-green-100', 'text-green-700', 'border', 'border-green-300');
+                            formMessage.classList.add('bg-emerald-500/10', 'text-emerald-300', 'border', 'border-emerald-500/30');
                             break;
                         case 'error':
-                            formMessage.classList.add('bg-red-100', 'text-red-700', 'border', 'border-red-300');
+                            formMessage.classList.add('bg-red-500/10', 'text-red-300', 'border', 'border-red-500/30');
                             break;
                         case 'info':
-                            formMessage.classList.add('bg-blue-100', 'text-blue-700', 'border', 'border-blue-300');
+                            formMessage.classList.add('bg-violet-500/10', 'text-violet-200', 'border', 'border-violet-500/30');
                             break;
                     }
-                    
+
                     // Auto-hide success messages after 5 seconds
                     if (type === 'success') {
                         setTimeout(() => {
@@ -924,5 +1146,100 @@
     </script>
 
     <script src="lang.js"></script>
+    <script src="reactbits.js"></script>
+    <script>
+        // React Bits effects (vanilla ports in reactbits.js). Registered after
+        // lang.js so the translated text is already in place when they start.
+        document.addEventListener('DOMContentLoaded', function() {
+            const RB = window.ReactBits;
+            if (!RB) return;
+
+            RB.DarkVeil(document.getElementById('hero-veil'), {
+                color: '#7c3aed',
+                speed: 0.4,
+                glow: 0.5,
+                grain: 0.04
+            });
+
+            RB.ElectricBorder(document.getElementById('profile-frame'), {
+                color: '#c084fc',
+                glowColor: '#7c3aed',
+                borderRadius: 9999, // clamped to half the size: a circle
+                speed: 0.8,
+                chaos: 0.4,
+                strands: 3,
+                glow: 0.9
+            });
+
+            RB.GradientText(document.getElementById('hero-name'), {
+                colors: ['#c4b5fd', '#e879f9', '#8b5cf6', '#f0abfc'],
+                animationSpeed: 10,
+                glow: 0.3
+            });
+
+            const subname = document.getElementById('subname');
+            const subtitle = RB.DecryptedText(subname, {
+                animateOn: 'view',
+                sequential: true,
+                speed: 30,
+                characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/{}[]#$%&*+=',
+                scrambleColor: '#c084fc'
+            });
+            // lang.js replaces the text: decrypt the new one
+            document.addEventListener('langchange', () => subtitle.setText(subname.textContent));
+
+            document.querySelectorAll('.section-title').forEach(title => RB.ShinyText(title, {
+                color: '#ececf1',
+                shineColor: '#c084fc',
+                speed: 2.4,
+                delay: 3,
+                shineWidth: 30
+            }));
+
+            RB.StarBorder(document.querySelector('.cta-primary'), {
+                backgroundColor: 'linear-gradient(135deg, #6d28d9, #9333ea)',
+                textColor: '#ffffff',
+                borderColor: 'rgba(216, 180, 254, 0.35)',
+                color: '#f5d0fe',
+                trailColor: '#a855f7',
+                glow: 0.8,
+                sparkle: true,
+                hover: 'brighten'
+            });
+
+            RB.StarBorder(document.querySelector('.cta-ghost'), {
+                backgroundColor: 'rgba(17, 17, 24, 0.7)',
+                textColor: '#e9d5ff',
+                borderColor: 'rgba(168, 85, 247, 0.3)',
+                color: '#c084fc',
+                duration: 6
+            });
+
+            document.querySelectorAll('.card').forEach(card => RB.SpotlightCard(card, {
+                spotlightColor: '#a855f7',
+                intensity: 0.22,
+                spotlightSize: 320,
+                borderGlow: 0.9,
+                style: {
+                    '--spotlight-card-surface': 'rgba(17, 17, 24, 0.78)',
+                    '--spotlight-card-border': 'rgba(255, 255, 255, 0.07)'
+                }
+            }));
+
+            document.querySelectorAll('[data-count]').forEach(number => RB.CountUp(number, {
+                to: Number(number.dataset.count),
+                duration: 1.8
+            }));
+
+            RB.ClickSpark(document.body, {
+                sparkColor: ['#c084fc', '#a855f7', '#e879f9'],
+                sparkSize: 12,
+                sparkRadius: 26,
+                sparkCount: 10,
+                glow: 0.7,
+                ring: true
+            });
+        });
+    </script>
 </body>
 </html>
